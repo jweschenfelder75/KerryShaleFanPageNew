@@ -1,0 +1,72 @@
+﻿@page "/News"
+@using de.jweschenfelder.KSFP.Shared.Objects
+@using de.jweschenfelder.KSFP.Web.Interfaces.BusinessLogic
+@inject IGenericService<GalleryItemDto> GalleryService
+
+<PageTitle>Kerry Shale Fanpage: News</PageTitle>
+
+<div class="section mt-5 pt-4">
+	<div class="container">
+		<div class="row mb-4 align-items-center">
+			<div class="col-lg-4">
+				<h2 class="heading">News<span class="text-primary">.</span> </h2>
+			</div>
+			<div class="col-lg-4">
+				<p class="text-black-50">
+					Some news about Mr Shale.
+				</p>
+			</div>
+		</div>
+
+		<div class="row mb-5 justify-content-between">
+			<div class="col-lg-6 text-black-100 order-lg-2">
+				<p>
+					Do not miss it!
+					Kerry Shale in 'The Kubrick Test'. Based on true facts.<br />
+					<strong>
+						07 - 08 March 2024 on BBC Radio 4 Extra.<br />
+						At 05:00, 10:00, 15:00, 00:00.<br />
+					</strong>
+				</p>
+				<p>
+					"Kerry Shale's drama tells the true story of his encounter with one of cinema's most influential figures.<br /><br />
+					Kerry ...... Kerry Shale<br />
+					Leon ...... Robert Emms<br />
+					Kubrick ...... Henry Goodman<br /><br />
+					Written by Kerry Shale<br />
+					Based on a script by Jeremiah Quinn<br />
+					Produced and Directed by Boz Temple-Morris<br /><br />
+					A Holy Mountain production for BBC Radio 4, first broadcast in April 2020."
+				</p>
+				<p>
+					Program link: <br />
+					- <a href="https://www.bbc.co.uk/programmes/m000h1mb" target="_blank">The Kubrick Test</a><br />
+				</p>
+			</div>
+			<div class="col-lg-5 ps-lg-4 float-start">
+				<img src="images/TheKubrickTest.jpg" alt="Image" class="img-fluid rounded-3">
+			</div>
+		</div>
+
+		<div class="section py-0">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-lg-5 text-black-100">
+						<p>
+							The Kubrick Test, written by and with Mr Shale:
+						</p>
+						<p>
+							<iframe width="480" height="270" src="https://www.youtube-nocookie.com/embed/tUw8mZKwpe8?si=aPga7ea_cD9xkFe3"
+									title="YouTube video player" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+									allowfullscreen class="rounded-3"></iframe>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@code {
+
+}

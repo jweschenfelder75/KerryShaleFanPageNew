@@ -1,0 +1,58 @@
+﻿@page "/fetchdata"
+@using de.jweschenfelder.KSFP.Web.Data
+@inject WeatherForecastService ForecastService
+
+<PageTitle>Weather forecast</PageTitle>
+
+<div>
+    <h1>Weather forecast</h1>
+
+    <AuthorizeView>
+        <Authorized>
+            <p>This component demonstrates fetching data from a service.</p>
+
+            @if (forecasts == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Temp. (C)</th>
+                            <th>Temp. (F)</th>
+                            <th>Summary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var forecast in forecasts)
+                        {
+                            <tr>
+                                <td>@forecast.Date.ToShortDateString()</td>
+                                <td>@forecast.TemperatureC</td>
+                                <td>@forecast.TemperatureF</td>
+                                <td>@forecast.Summary</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </Authorized>
+        <NotAuthorized>
+            <p>
+                <div class ="text-danger">You are not authorized to see this page. Please log in first!</div>
+            </p>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}

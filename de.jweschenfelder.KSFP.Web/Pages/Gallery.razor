@@ -1,0 +1,53 @@
+﻿@page "/Gallery"
+@using de.jweschenfelder.KSFP.Shared.Objects
+@using de.jweschenfelder.KSFP.Web.Interfaces.BusinessLogic
+@inject IGenericService<GalleryItemDto> GalleryService
+
+<PageTitle>Kerry Shale Fanpage: Gallery</PageTitle>
+
+<div class="section mt-5 pt-4">
+	<div class="container">
+        <div class="row mb-4 align-items-center">
+            <div class="col-lg-4">
+                <h2 class="heading">Gallery<span class="text-primary">.</span> </h2>
+            </div>
+            <div class="col-lg-4">
+                <p class="text-black-50">
+                    Some pictures of Mr Shale.
+                </p>
+            </div>
+        </div>
+
+        <BSCarousel HasControls="true" HasIndicators="true">
+            @foreach (var item in items)
+            {
+                <BSCarouselItem Interval="15000">
+                    <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <rect width="100%" height="100%" fill="#333"></rect>
+                        <foreignObject x="5%" y="5%" width="90%" height="80%">
+                            <div xmlns="http://www.w3.org/1999/xhtml"
+                                 class="w-100 h-100 fs-5 text-white img-vertical-center-container">
+                                <div class="w-100 img-vertical-center text-center">
+                                    <img src="@item.ImageSrc" alt="@item.ImageAltEn" class="img-fluid img-gallery-max rounded-3"><br />
+                                </div>
+                            </div>
+                        </foreignObject>
+                    </svg>
+                    <BSCarouselCaption Class="d-none d-md-block">
+                        <p>@item.ImageCredits</p>
+                    </BSCarouselCaption>
+                </BSCarouselItem>
+            }
+        </BSCarousel>
+	</div>
+</div>
+
+@code {
+    private IList<GalleryItemDto> items = new List<GalleryItemDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        items = GalleryService.GetAll() ?? new List<GalleryItemDto>();
+    }
+}

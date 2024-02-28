@@ -1,0 +1,62 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime jsRuntime
+
+<PageTitle>Kerry Shale Fanpage</PageTitle>
+
+<div>
+    <div>
+        <div>
+            <NavMenu />
+        </div>
+        <div>
+            @Body
+        </div>
+    </div>
+
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">🌸</div>
+        </div>
+    </div>
+</div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        await jsRuntime.InvokeAsync<string>("console.log", "hello world");
+    }
+}

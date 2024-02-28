@@ -1,0 +1,51 @@
+﻿@page
+@model LoginWith2faModel
+@{
+    ViewData["Title"] = "Two-factor authentication";
+}
+
+<p>
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
+    <div class="row">
+        <div class="col-md-4">
+            <p>
+                <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                    <input asp-for="RememberMe" type="hidden" />
+                    <p>
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    </p>
+                    <div class="form-floating mb-3">
+                        <p>
+                            <label asp-for="Input.TwoFactorCode" class="form-label"></label>
+                            <input asp-for="Input.TwoFactorCode" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Input.TwoFactorCode" class="text-danger"></span>
+                        </p>
+                    </div>
+                    <div class="checkbox mb-3">
+                        <p>
+                            <label asp-for="Input.RememberMachine" class="form-label">
+                                @Html.DisplayNameFor(m => m.Input.RememberMachine)
+                                <input asp-for="Input.RememberMachine" />
+                            </label>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                        </p>
+                    </div>
+                </form>
+            </p>
+        </div>
+    </div>
+    <p>
+        Don't have access to your authenticator device? You can
+        <a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl">log in with a recovery code</a>.
+    </p>
+</p>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

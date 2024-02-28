@@ -1,0 +1,62 @@
+﻿<BSNavbar Class="bg-white" IsFixedTop="true" Expand="Size.Large">
+    <BSContainer Container="Container.Fluid">
+        <BSNavbarBrand Class="m-0 w-50"><a href="/" class="text-dark"><strong>Kerry Shale Fanpage</strong><span class="text-primary"><strong>.</strong></span></a></BSNavbarBrand>
+        <BSCollapse IsInNavbar="true">
+            <Toggler>
+                <BSNavbarToggle />
+            </Toggler>
+            <Content>
+                <div>
+                    <BSNav Class="mt-1">
+                        <BSNavItem Class="mx-1" Url="/">Home</BSNavItem>
+                        <BSNavItem Class="mx-1" Url="/KerryShale">Kerry Shale</BSNavItem>
+                        <BSNavItem Class="mx-1" Url="/Gallery">Gallery</BSNavItem>
+                        <BSNavItem Class="mx-1" Url="/Quotes">Quotes</BSNavItem>
+                        <BSNavItem Class="mx-1" Url="/News">
+                            News
+                            <span class="badge text-danger position-relative top-0 start-0 translate-middle m-1 p-0">(1)</span>
+                        </BSNavItem>
+                        <BSNavItem Class="mx-2" Url="/" IsDropdown="true">
+                            <BSDropdown>
+                                <Toggler>
+                                    <BSToggle IsNavLink="true">Projects</BSToggle>
+                                </Toggler>
+                                <Content>
+                                    <BSDropdownItem Url="/Projects/Sandman">The Sandman</BSDropdownItem>
+                                    <BSDropdownItem Url="/Projects/Gumball">The Amazing World Of Gumball</BSDropdownItem>
+                                    <BSDropdownItem Url="/Projects/ChickenPolice">Chicken Police: Into The HIVE!</BSDropdownItem>
+                                    <BSDropdownItem Url="/Projects/IceAirportAlaska">Ice Airport Alaska</BSDropdownItem>
+                                    <BSDropdownItem Url="/Projects/DylanPodcast">Is It Rolling Bob? Talking Dylan</BSDropdownItem>
+                                </Content>
+                            </BSDropdown>
+                        </BSNavItem>
+                        <BSNavItem Class="mx-1" Url="/Contact">Contact</BSNavItem>
+                    </BSNav>
+                </div>
+            </Content>
+        </BSCollapse>
+        @* <LoginDisplay /> *@
+    </BSContainer>
+</BSNavbar>
+
+@* 
+<a href="/">Home</a>
+<a href="/kerryshale">Kerry Shale</a>
+<AuthorizeView>
+    <Authorized>
+        <a href="/counter">Counter</a>
+        <a href="/fetchdata">FetchData</a>
+    </Authorized>
+</AuthorizeView> 
+*@
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? " d-none" : " show";
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

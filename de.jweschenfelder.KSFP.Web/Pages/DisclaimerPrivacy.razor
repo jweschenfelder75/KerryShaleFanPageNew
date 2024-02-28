@@ -1,0 +1,71 @@
+﻿@page "/disclaimerprivacy"
+
+<PageTitle>Disclaimer &amp; Privacy Protection</PageTitle>
+
+<div>
+    <h1>Disclaimer &amp; Privacy Protection</h1>
+
+    <div class="d-flex flex-grow-1 gap-4 flex-wrap">
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1">
+            <p>
+                This website uses cookies and fundamental trackers that process data from visitors who visit this website.
+            </p>
+            <p>
+                The web server, which hosts this website, tracks the public IP addresses of visitors and the visited pages of this website for statistic purposes and to identify potential danger like attempted hacker attacks.
+                This website itself is using essential cookies which are needed for the login in the protected area of this website. Essential cookies are only valid for one session, they are essential for this website to function correctly.
+                This website also contains a contact form, the data collected there will be transmitted via HTTPS and via e-mail. The data will only be used for the time it is necessary to fulfill your request.
+                Since no more information is collected above that, no additional cookie disclaimer will be shown to you because they are already covered by the GDPR and ePrivacy Directive.
+            </p>
+            <p>
+                By registering for using the protected area of this website, you accept automatically that essential cookies are used.
+                You can see/download, correct and delete your login data for this website anytime.
+            </p>
+            <p>
+                By using the contact form, you will transfer all the visible data you have provided in the contact form as it is. HTTPS is used to transfer and encrypt the data, and then it will be sent via e-mail from the server.
+                The data will be deleted after the e-mail request was fulfilled. Correcting the original data is technically not possbile here, but you can send an new updated request via the contact form.
+            </p>
+            <p>
+                The connection timed out, the server rejected the connection and you are requested to reload the page. What does this mean?<br />
+                Do not worry, it is not related to any tracking. It is not a bug either. It is a feature by SignalR which is used by default in Microsoft's Blazor. In Blazor there exists a server side and a client side. Both communicate via SignalR.<br />
+                - The client side only displays the content, it is like a very stupid terminal.<br />
+                - The server side is the intelligent part and provides the content for the client.<br />
+                - Without the server, the client does not know what to show.<br />
+                - Since the client is dynamic and independent, it will not know when the content from the server might have probably changed.<br />
+                - Therefore the SignalR connection has a timeout at some point, a new connection gets then established, and the old connection gets refused by the server, and you are requested to reload the website.<br />
+                - Or more detailed: Each SignalR connection has a unique ID (comparable to a SessionID), and SignalR can figure out by that ID if the connection is still valid.<br />
+                - Maybe you have seen on some newspaper websites that the content of the website might have been updated with new content and that you are requested to reload the website when leaving the website open for a longer time, it is not different there.<br />
+                - Of course, it would be much nicer if the reconnect would happen automatically in the background; that is still on the list of improvements for this website and this feature will be implemented soon. It had already worked on the former Blazor website for this fanpage, it was not different there.<br />
+                See here for more information:
+                <a href="@("https://www.peug.net/en/blazor-manage-disconnects/")" target="_blank">
+                    Information about Blazor SignalR disconnects
+                </a><br />
+                Or here:
+                <a href="@("https://learn.microsoft.com/en-us/aspnet/signalr/overview/guide-to-the-api/handling-connection-lifetime-events")" target="_blank">
+                    Understanding and Handling Connection Lifetime Events in SignalR
+                </a>
+            </p>
+            <p>
+                As mentioned already, the web server tracks fundamental data about the visitor of this website via IIS Web Log, those are in detail:<br />
+                - The public Client IP address of the visitor.<br />
+                - Information about the URLs of the domain of this website the visitor tried to visit including date and time and if it was successful. It also helps to identify potential danger like e.g. hackers scanning the website for
+                security leaks (to detect suspicious behaviour).<br />
+                - Information about the used web browser (User Agent), if available/applicable, to serve browser-appropriate content to the visitor.<br />
+                - Which website had linked this website aka referrer, if available/applicable.<br />
+                <img src="/imgs/iis.png" alt="Threads" width="800" height="400" /><br />
+                See here for more information:
+                <a href="@("https://www.crowdstrike.com/cybersecurity-101/observability/iis-logs/")" target="_blank">
+                    IIS Web Log
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

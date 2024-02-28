@@ -1,0 +1,33 @@
+﻿@page "/"
+@namespace de.jweschenfelder.KSFP.Web.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<div id="components-reconnect-modal">
+    <div class="reconnecting">
+        There was a problem with the connection!
+        (Current reconnect attempt:
+        <span id="components-reconnect-current-attempt"></span> /
+        <span id="components-reconnect-max-retries"></span>)
+    </div>
+    <div class="failedToConnect">
+        The connection to the server probably timed out and failed to connect.<br />Please try to reconnect to the server: <input type="button" class="text-bold text-danger px-2" value="Reconnect" onclick="ReconnectToServer()" />
+        <script>
+            function ReconnectToServer() {
+                window.Blazor.reconnect();
+            }
+        </script>
+    </div>
+    <div class="connectionRejected">
+        The connection to the server probably timed out and was rejected by the server.<br />Please try to reload the website: <input type="button" class="text-bold text-danger px-2" value="Reload website" onclick="ReloadPage()" />
+        <script>
+            function ReloadPage() {
+                location.reload();
+            }
+        </script>
+    </div>
+</div>
+
+<component type="typeof(App)" render-mode="ServerPrerendered" />
