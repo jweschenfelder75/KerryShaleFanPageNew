@@ -1,8 +1,11 @@
 ﻿@page "/Contact"
 @using System.Globalization
+@using Microsoft.AspNetCore.Http.Extensions
+@using System.Net.Mail
 @using de.jweschenfelder.KSFP.Shared.Objects
 @using de.jweschenfelder.KSFP.Web.Interfaces.MailAndSmsServices
 @inject IGmailMailAndSmsService GmailMailAndSmsService
+@inject NavigationManager MyNavigationManager
 
 <PageTitle>Kerry Shale Fanpage: Contact</PageTitle>
 
@@ -12,16 +15,6 @@
 			<div class="col-lg-5">
 				<h2 class="heading">Get in touch</h2>
 				<p class="text-black-50">Please watch your language when using this form, some words might be blocked.</p>
-			</div>
-		</div>
-
-		<div class="row g-1 align-items-center">
-			<div class="col-12">
-				<p class="text-black-50">
-					<BSAlert Color="BSColor.Danger">
-						23 Jul 2024: This contact form gets currently reworked and will be available soon again. Sending messages via this form is currently not possible. Many thanks for your understanding.
-					</BSAlert>
-				</p>
 			</div>
 		</div>
 
@@ -148,27 +141,44 @@
 @code {
 	private ContactDataDto ContactData = new ContactDataDto();
 
+	bool FormIsValid = false;
 	bool LastSubmitResult = false;
 	string LastSubmitResultString = string.Empty;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+		var url = MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri);
+		if (url.Contains("__RequestVerificationToken", StringComparison.InvariantCultureIgnoreCase))
+		{
+			MyNavigationManager.NavigateTo("/Contact", true);
+		}
+	}
 
 	private async Task SubmitAsync(EditContext context)
 	{
 		try
 		{
-			bool formIsValid = context.Validate();
-			@*if (formIsValid) 
+			bool FormIsValid = context.Validate();
+			if (FormIsValid)
 			{
 				var contactData = context.Model as ContactDataDto ?? new ContactDataDto();
 
-				LastSubmitResult = GmailMailAndSmsService.SendMailNotification(string.Empty, string.Empty, $"[kerryshalefanpage] {contactData.Subject}",
-					$"Name: {contactData.Name}{Environment.NewLine}E-mail: {contactData.EMail}{Environment.NewLine}Subject: {contactData.Subject}{Environment.NewLine}Body: {contactData.Message}{Environment.NewLine}Timestamp: {DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture)}");
+				try
+				{
+					var address = new MailAddress(contactData.EMail).Address;
+					LastSubmitResult = GmailMailAndSmsService.SendMailNotification(string.Empty, string.Empty, $"[kerryshalefanpage] {contactData.Subject}",
+						$"Name: {contactData.Name}{Environment.NewLine}E-mail: {contactData.EMail}{Environment.NewLine}Subject: {contactData.Subject}{Environment.NewLine}Body: {contactData.Message}{Environment.NewLine}Timestamp: {DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture)}");
+				}
+				catch (FormatException)
+				{
+					LastSubmitResult = false;
+				}
 			}
 
-			LastSubmitResultString = (formIsValid && LastSubmitResult)
+			LastSubmitResultString = (FormIsValid && LastSubmitResult)
 					? "Message has been sent."
-					: "Message has not been sent.";*@
-
-			LastSubmitResultString = "Message has not been sent.";
+					: "Message has not been sent, please verify the entered data and try again.";
 
 			await InvokeAsync(StateHasChanged);
 		}

@@ -19,51 +19,66 @@ builder.Configuration.AddJsonFile("gallerysettings.json", optional: true, reload
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    {
-        options.UseSqlServer(connectionString);
-    });
+{
+	options.UseSqlServer(connectionString);
+});
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy(name: myAllowSpecificOrigins,
+					policy =>
+					{
+						policy.WithOrigins("http://kerryshalefanpage.com",
+											"http://www.kerryshalefanpage.com",
+											"https://kerryshalefanpage.com",
+											"https://www.kerryshalefanpage.com")
+							.AllowAnyHeader()
+							.AllowAnyMethod();
+					});
+});
 
 builder.Services.Configure<NewsSettings>(builder.Configuration.GetSection("NewsSettings"));
 builder.Services.Configure<GallerySettings>(builder.Configuration.GetSection("GallerySettings"));
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = true;
-    })
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+{
+	options.SignIn.RequireConfirmedAccount = true;
+})
+	.AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddBlazorBootstrap();
 builder.Services.AddBlazorStrap();
-builder.Services.AddServerSideBlazor().AddCircuitOptions(options => 
+builder.Services.AddServerSideBlazor().AddCircuitOptions(options =>
 {
-    options.DetailedErrors = true;
-    options.DisconnectedCircuitMaxRetained = 100;
-    options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromMinutes(1);
-    options.JSInteropDefaultCallTimeout = TimeSpan.FromMinutes(1);
+	options.DetailedErrors = true;
+	options.DisconnectedCircuitMaxRetained = 100;
+	options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromMinutes(1);
+	options.JSInteropDefaultCallTimeout = TimeSpan.FromMinutes(1);
 });
 
 builder.Services.AddServerSideBlazor(options =>
 {
-    options.DetailedErrors = true;
-    options.DisconnectedCircuitMaxRetained = 100;
-    options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromMinutes(3);
-    options.JSInteropDefaultCallTimeout = TimeSpan.FromMinutes(1);
-    options.MaxBufferedUnacknowledgedRenderBatches = 10;
+	options.DetailedErrors = true;
+	options.DisconnectedCircuitMaxRetained = 100;
+	options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromMinutes(3);
+	options.JSInteropDefaultCallTimeout = TimeSpan.FromMinutes(1);
+	options.MaxBufferedUnacknowledgedRenderBatches = 10;
 }).AddHubOptions(options =>
 {
-    options.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
-    options.EnableDetailedErrors = false;
-    options.HandshakeTimeout = TimeSpan.FromSeconds(30);
-    options.KeepAliveInterval = TimeSpan.FromSeconds(2);
-    options.MaximumParallelInvocationsPerClient = 1;
-    options.StreamBufferCapacity = 10;
+	options.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
+	options.EnableDetailedErrors = false;
+	options.HandshakeTimeout = TimeSpan.FromSeconds(30);
+	options.KeepAliveInterval = TimeSpan.FromSeconds(2);
+	options.MaximumParallelInvocationsPerClient = 1;
+	options.StreamBufferCapacity = 10;
 
 });
 
 builder.Services.AddSignalR(e =>
 {
-    e.MaximumReceiveMessageSize = 102400000;
-    e.KeepAliveInterval = TimeSpan.FromSeconds(5);
+	e.MaximumReceiveMessageSize = 102400000;
+	e.KeepAliveInterval = TimeSpan.FromSeconds(5);
 });
 
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
@@ -78,14 +93,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+	app.UseMigrationsEndPoint();
 }
 else
 {
-    //app.UseResponseCompression();  // Throws an error: Unable to resolve service for type 'Microsoft.AspNetCore.ResponseCompression.IResponseCompressionProvider' while attempting to activate 'Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware'.
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	//app.UseResponseCompression();  // Throws an error: Unable to resolve service for type 'Microsoft.AspNetCore.ResponseCompression.IResponseCompressionProvider' while attempting to activate 'Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware'.
+	app.UseExceptionHandler("/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -94,15 +109,18 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors(myAllowSpecificOrigins);
+
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseAntiforgery();
 
 app.MapControllers();
 
 app.MapBlazorHub(options =>
 {
-    options.AllowStatefulReconnects = true;
-    options.TransportSendTimeout = TimeSpan.FromSeconds(30);
+	options.AllowStatefulReconnects = true;
+	options.TransportSendTimeout = TimeSpan.FromSeconds(30);
 });
 
 app.MapFallbackToPage("/_Host");
