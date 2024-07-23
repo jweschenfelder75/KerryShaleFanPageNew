@@ -5,7 +5,6 @@
 @using de.jweschenfelder.KSFP.Shared.Objects
 @using de.jweschenfelder.KSFP.Web.Interfaces.MailAndSmsServices
 @inject IGmailMailAndSmsService GmailMailAndSmsService
-@inject NavigationManager MyNavigationManager
 
 <PageTitle>Kerry Shale Fanpage: Contact</PageTitle>
 
@@ -144,16 +143,6 @@
 	bool FormIsValid = false;
 	bool LastSubmitResult = false;
 	string LastSubmitResultString = string.Empty;
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		await base.OnAfterRenderAsync(firstRender);
-		var url = MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri);
-		if (url.Contains("__RequestVerificationToken", StringComparison.InvariantCultureIgnoreCase))
-		{
-			MyNavigationManager.NavigateTo("/Contact", true);
-		}
-	}
 
 	private async Task SubmitAsync(EditContext context)
 	{
