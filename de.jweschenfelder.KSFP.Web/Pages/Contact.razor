@@ -14,6 +14,17 @@
 				<p class="text-black-50">Please watch your language when using this form, some words might be blocked.</p>
 			</div>
 		</div>
+
+		<div class="row g-1 align-items-center">
+			<div class="col-12">
+				<p class="text-black-50">
+					<BSAlert Color="BSColor.Danger">
+						23 Jul 2024: This contact form gets currently reworked and will be available soon again. Sending messages via this form is currently not possible. Many thanks for your understanding.
+					</BSAlert>
+				</p>
+			</div>
+		</div>
+
 		<EditForm Model=@ContactData OnSubmit=@((args) => SubmitAsync(args))>
 			<DataAnnotationsValidator />
 
@@ -145,7 +156,7 @@
 		try
 		{
 			bool formIsValid = context.Validate();
-			if (formIsValid) 
+			@*if (formIsValid) 
 			{
 				var contactData = context.Model as ContactDataDto ?? new ContactDataDto();
 
@@ -155,7 +166,9 @@
 
 			LastSubmitResultString = (formIsValid && LastSubmitResult)
 					? "Message has been sent."
-					: "Message has not been sent.";
+					: "Message has not been sent.";*@
+
+			LastSubmitResultString = "Message has not been sent.";
 
 			await InvokeAsync(StateHasChanged);
 		}
