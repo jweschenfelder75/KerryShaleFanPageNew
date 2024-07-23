@@ -116,6 +116,7 @@ app.UseAuthorization();
 app.UseAntiforgery();
 
 app.MapControllers();
+app.MapRazorPages();
 
 app.MapBlazorHub(options =>
 {
