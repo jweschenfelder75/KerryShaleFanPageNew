@@ -4,6 +4,7 @@
 @using System.Net.Mail
 @using de.jweschenfelder.KSFP.Shared.Objects
 @using de.jweschenfelder.KSFP.Web.Interfaces.MailAndSmsServices
+@using BlazorCaptcha
 @inject IGmailMailAndSmsService GmailMailAndSmsService
 
 <PageTitle>Kerry Shale Fanpage: Contact</PageTitle>
@@ -23,7 +24,7 @@
 			<div class="row">
 				<div class="col-12 col-md-6 col-lg-6">
 					<div class="mb-3">
-						<label for="name" class="ps-3 mb-2">Name</label>
+						<label for="Name" class="mb-2">Name</label>
 						<input type="text" class="form-control" id="Name" @bind-value="@ContactData.Name">
 						@* <ValidationMessage For="@(() => ContactData.Name)" /> *@
 					</div>
@@ -31,7 +32,7 @@
 
 				<div class="col-12 col-md-6 col-lg-6">
 					<div class="mb-3">
-						<label for="email" class="ps-3 mb-2">Email</label>
+						<label for="Email" class="mb-2">Email</label>
 						<input type="text" class="form-control" id="Email" @bind-value="@ContactData.EMail">
 						@* <ValidationMessage For="@(() => ContactData.EMail)" /> *@
 					</div>
@@ -40,7 +41,7 @@
 
 			<div class="col-md-12 col-lg-12">
 				<div class="mb-3">
-					<label for="subject" class="ps-3 mb-2">Subject</label>
+					<label for="Subject" class="mb-2">Subject</label>
 					<input type="text" class="form-control" id="Subject" @bind-value="@ContactData.Subject">
 					@* <ValidationMessage For="@(() => ContactData.Subject)" /> *@
 				</div>
@@ -48,9 +49,34 @@
 
 			<div class="col-md-12 col-lg-12">
 				<div class="mb-3">
-					<label for="message" class="ps-3 mb-2">Message</label>
-					<textarea class="form-control" id="Message" cols="30" rows="7" @bind="@ContactData.Message"></textarea>
+					<label for="Message" class="mb-2">Message</label>
+					<textarea class="form-control" id="Message" cols="30" rows="5" @bind="@ContactData.Message"></textarea>
 					@* <ValidationMessage For="@(() => ContactData.Message)" /> *@
+				</div>
+			</div>
+
+			<div class="col-md-12 col-lg-12">
+				<div class="mb-2">
+					<div class="row">
+						<div class="col">
+							<label for="ReEnteredCaptcha" class="mb-2">Please re-enter the text displayed in the image to ensure you are a human:</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<input type="text" class="form-control" id="ReEnteredCaptcha" @bind="@ReEnteredCaptcha"></input>
+							@* <ValidationMessage For="@(() => ReEnteredCaptcha)" /> *@
+						</div>
+						<div class="col mt-2">
+							<Captcha @bind-CaptchaWord="@Captcha" CharNumber="@CaptchaLetters" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-12 col-lg-12">
+				<div class="mb-3">
+					<span class="mb-2">If you have difficulties to read the text in the image, please use the refresh button next to it to generate another image.</span>
 				</div>
 			</div>
 
@@ -68,6 +94,13 @@
 			</div>
 
 		</EditForm>
+
+		<div class="col-md-12 col-lg-12">
+			<div class="mt-5 text-center">
+				For further assistance, you can reach out to a real person via voicebox/fax or e-mail <a href="https://jweschenfelder.de/pages/contact.html" target="_blank">here</a>, either in English or German.
+			</div>
+		</div>
+
 	</div>
 </div>
 
@@ -144,11 +177,28 @@
 	bool LastSubmitResult = false;
 	string LastSubmitResultString = string.Empty;
 
+	private string Captcha = "";
+	private string ReEnteredCaptcha = "";
+	private int CaptchaLetters = 5;
+
+	protected override Task OnInitializedAsync()
+	{
+		Captcha = BlazorCaptcha.Tools.GetCaptchaWord(CaptchaLetters);
+
+		return base.OnInitializedAsync();
+	}
+
 	private async Task SubmitAsync(EditContext context)
 	{
 		try
 		{
 			bool FormIsValid = context.Validate();
+
+			if (!ReEnteredCaptcha.Equals(Captcha, StringComparison.InvariantCultureIgnoreCase))
+			{
+				FormIsValid = false;
+			}
+
 			if (FormIsValid)
 			{
 				var contactData = context.Model as ContactDataDto ?? new ContactDataDto();
