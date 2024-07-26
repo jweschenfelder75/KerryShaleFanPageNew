@@ -53,23 +53,23 @@ builder.Services.AddServerSideBlazor().AddCircuitOptions(options =>
 {
 	options.DetailedErrors = true;
 	options.DisconnectedCircuitMaxRetained = 100;
-	options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromMinutes(1);
-	options.JSInteropDefaultCallTimeout = TimeSpan.FromMinutes(1);
+	options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromMinutes(5);
+	options.JSInteropDefaultCallTimeout = TimeSpan.FromMinutes(30);
 });
 
 builder.Services.AddServerSideBlazor(options =>
 {
 	options.DetailedErrors = true;
 	options.DisconnectedCircuitMaxRetained = 100;
-	options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromMinutes(3);
-	options.JSInteropDefaultCallTimeout = TimeSpan.FromMinutes(1);
+	options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromMinutes(5);
+	options.JSInteropDefaultCallTimeout = TimeSpan.FromMinutes(30);
 	options.MaxBufferedUnacknowledgedRenderBatches = 10;
 }).AddHubOptions(options =>
 {
-	options.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
+	options.ClientTimeoutInterval = TimeSpan.FromMinutes(60);
 	options.EnableDetailedErrors = false;
-	options.HandshakeTimeout = TimeSpan.FromSeconds(30);
-	options.KeepAliveInterval = TimeSpan.FromSeconds(2);
+	options.HandshakeTimeout = TimeSpan.FromMinutes(30);
+	options.KeepAliveInterval = TimeSpan.FromSeconds(5);
 	options.MaximumParallelInvocationsPerClient = 1;
 	options.StreamBufferCapacity = 10;
 

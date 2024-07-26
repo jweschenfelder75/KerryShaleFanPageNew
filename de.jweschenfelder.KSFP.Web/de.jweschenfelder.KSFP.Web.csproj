@@ -9,23 +9,24 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Blazor.Bootstrap" Version="1.11.1" />
-    <PackageReference Include="BlazorStrap" Version="5.1.102.51923" />
+    <PackageReference Include="Blazor.Bootstrap" Version="2.2.0" />
+    <PackageReference Include="BlazorCaptcha" Version="1.6.0" />
+    <PackageReference Include="BlazorStrap" Version="5.2.100.61524" />
     <PackageReference Include="BlazorStrap.Extensions.BSDataTable" Version="1.5.1" />
-    <PackageReference Include="BlazorStrap.V5" Version="5.1.102.51723" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
+    <PackageReference Include="BlazorStrap.V5" Version="5.2.100" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
   </ItemGroup>
 
