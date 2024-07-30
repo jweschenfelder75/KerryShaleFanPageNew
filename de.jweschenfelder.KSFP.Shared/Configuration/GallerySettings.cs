@@ -16,9 +16,13 @@ namespace de.jweschenfelder.KSFP.Shared.Configuration
 	[Serializable]
 	public class GalleryItem
 	{
-		public string? ImageSrc { get; set; }
-		public string? ImageAltEn { get; set; }
-		public string? ImageAltDe { get; set; }
-		public string? ImageCredits { get; set; }
+		public string? HtmlTitleEn { get; set; }
+		public string? HtmlTitleDe { get; set; }
+		public string? UrlEn { get; set; }
+		public string? UrlDe { get; set; }
+		public string? AltEn { get; set; }
+		public string? AltDe { get; set; }
+		public string? HtmlCreditsEn { get; set; }
+		public string? HtmlCreditsDe { get; set; }
 	}
 }

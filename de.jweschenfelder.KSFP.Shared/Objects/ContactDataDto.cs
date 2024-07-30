@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace de.jweschenfelder.KSFP.Shared.Objects
 {
-    [Serializable]
-    public class ContactDataDto
-    {
+	[Serializable]
+	public class ContactDataDto
+	{
 		[Required(ErrorMessage = "Name is required."), DataType(DataType.Text), MaxLength(150, ErrorMessage = "Name must not be longer than 150 characters.")]
 		public string Name { get; set; } = string.Empty;
 
@@ -17,5 +17,5 @@ namespace de.jweschenfelder.KSFP.Shared.Objects
 
 		[Required(ErrorMessage = "Message is required."), DataType(DataType.MultilineText), MaxLength(1000, ErrorMessage = "Message must not be longer than 1000 characters.")]
 		public string Message { get; set; } = string.Empty;
-    }
+	}
 }
