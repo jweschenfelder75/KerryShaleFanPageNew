@@ -18,36 +18,52 @@
             </div>
         </div>
 
-        <BSCarousel HasControls="true" HasIndicators="true">
-            @foreach (var item in items)
-            {
-                <BSCarouselItem Interval="15000">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <rect width="100%" height="100%" fill="#333"></rect>
-                        <foreignObject x="5%" y="5%" width="90%" height="80%">
-                            <div xmlns="http://www.w3.org/1999/xhtml"
-                                 class="w-100 h-100 fs-5 text-white img-vertical-center-container">
-                                <div class="w-100 img-vertical-center text-center">
-                                    <img src="@item.UrlEn" alt="@item.AltEn" class="img-fluid img-gallery-max rounded-3"><br />
-                                </div>
-                            </div>
-                        </foreignObject>
-                    </svg>
-                    <BSCarouselCaption Class="d-none d-md-block">
-                        <p>@item.HtmlCreditsEn</p>
-                    </BSCarouselCaption>
-                </BSCarouselItem>
-            }
-        </BSCarousel>
+        @if (@items[itemInd] is not null)
+        {
+            <BSModal IsCentered="true" DataId="modaldlg" Class="modaldlg text-center" IsScrollable="true">
+                <Content>
+                    <div class="text-center">
+                        <img src="@items[itemInd].UrlEn" alt="@items[itemInd].AltEn" class="rounded-3"><br />
+                        <div class="image-text text-center rounded-3">@items[itemInd].HtmlCreditsEn</div>
+                    </div>
+                </Content>
+                <Footer Context="modal">
+                    <BSButton MarginStart="Margins.Auto" Color="BSColor.Secondary" OnClick="modal.HideAsync">Close</BSButton>
+                </Footer>
+            </BSModal>
+        }
+
+        <div class="gallery">
+            <div class="image-container">
+                <div class="image text-center">
+                    @foreach(var item in items)
+                    {
+                        var ind = items.IndexOf(item);
+                        <div class="image-space">
+                            <BSButton Color="BSColor.Primary" OnClick="(args => ShowModalDlg(args, ind))" Target="modaldlg" Class="image-button rounded-3">
+                                <img src="@item.UrlEn" alt="@item.AltEn" class="rounded-3"><br />
+                                <div class="image-text text-center rounded-3">@item.HtmlCreditsEn</div>
+                            </BSButton>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
 	</div>
 </div>
 
 @code {
-    private IList<GalleryItemDto> items = new List<GalleryItemDto>();
+    IList<GalleryItemDto> items = new List<GalleryItemDto>();
+    int itemInd = 0;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         items = GalleryService.GetAll() ?? new List<GalleryItemDto>();
+    }
+
+    private void ShowModalDlg(MouseEventArgs e, int ind)
+    {
+        itemInd = ind;
     }
 }
