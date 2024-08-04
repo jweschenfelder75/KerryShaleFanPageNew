@@ -43,8 +43,8 @@ namespace de.jweschenfelder.KSFP.Web.Controllers
 			var syndicationItems = new List<SyndicationItem>();
 			foreach (var item in currentItems)
 			{
-				var title = item.HtmlTitleEn + "(update)";
-				var content = !String.IsNullOrWhiteSpace(item.SecondaryUrlEn)
+				var title = item.HtmlTitleEn;
+				var content = !string.IsNullOrWhiteSpace(item.SecondaryUrlEn)
 							? $"<strong>{item.HtmlTitleEn}</strong><br/><br/><strong>{item.HtmlSubTitleEn}</strong><br/><br/><img src=\"{item.ImageUrlEn}\" alt=\"Image\" class=\"img-fluid rounded-3\" /><br/><br/>{item.HtmlBodyEn}<br/><br/>More information:<br />Link #1: <a href=\"{item.PrimaryUrlEn}\" target=\"_blank\">{item.PrimaryUrlEn}</a><br />Link #2: <a href=\"{item.SecondaryUrlEn}\" target=\"_blank\">{item.SecondaryUrlEn}</a>"
 							: $"<strong>{item.HtmlTitleEn}</strong><br/><br/><strong>{item.HtmlSubTitleEn}</strong><br/><br/><img src=\"{item.ImageUrlEn}\" alt=\"Image\" class=\"img-fluid rounded-3\" /><br/><br/>{item.HtmlBodyEn}<br/><br/>More information:<br />Link: <a href=\"{item.PrimaryUrlEn}\" target=\"_blank\">{item.PrimaryUrlEn}</a>";
 				syndicationItems.Add(new SyndicationItem(title, content, new Uri(url)));

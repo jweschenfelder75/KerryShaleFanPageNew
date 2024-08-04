@@ -97,7 +97,7 @@
 											<BSTD>@((MarkupString)(@item.HtmlSubTitleEn ?? String.Empty))</BSTD>
 											<BSTD>
 												@((MarkupString)(@item.HtmlTitleEn ?? String.Empty))<br />
-												@if (!String.IsNullOrWhiteSpace(@item.SecondaryUrlEn))
+												@if (!string.IsNullOrWhiteSpace(@item.SecondaryUrlEn))
 												{
 													<div>Link #1: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a><br />
 														Link #2: <a href="@item.SecondaryUrlEn" target="_blank">@item.SecondaryUrlEn</a>
@@ -118,7 +118,7 @@
 											<BSTD>@((MarkupString)(@item.HtmlSubTitleEn ?? String.Empty))</BSTD>
 											<BSTD>
 												@((MarkupString)(@item.HtmlTitleEn ?? String.Empty))<br />
-												@if (!String.IsNullOrWhiteSpace(@item.SecondaryUrlEn))
+												@if (!string.IsNullOrWhiteSpace(@item.SecondaryUrlEn))
 												{
 													<div>
 														Link #1: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a><br />
