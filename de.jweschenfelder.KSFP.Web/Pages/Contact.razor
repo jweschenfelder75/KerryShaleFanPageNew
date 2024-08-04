@@ -63,12 +63,14 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col">
+						<div class="col-md-6">
 							<input type="text" class="form-control" id="ReEnteredCaptcha" @bind="@ReEnteredCaptcha"></input>
 							@* <ValidationMessage For="@(() => ReEnteredCaptcha)" /> *@
 						</div>
-						<div class="col m-1">
-							<Captcha @bind-CaptchaWord="@Captcha" CharNumber="@CaptchaLetters" />
+						<div class="col-md-6">
+							<div class="row captcha">
+								<Captcha @bind-CaptchaWord="@Captcha" CharNumber="@CaptchaLetters" />
+							</div>
 						</div>
 					</div>
 				</div>
