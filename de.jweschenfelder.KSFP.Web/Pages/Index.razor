@@ -19,8 +19,8 @@
 			<div class="col-12">
 				<p class="text-black-50">
 					<BSAlert Color="BSColor.Info">
-						This is a fanpage operated by a fan, it is not operated by the real Kerry Shale! The official website of Mr Shale can be found
-						<BSLink href="https://www.kerryshale.com" target="_blank">HERE</BSLink>! <br />
+						This is a fanpage operated by a fan, it is not operated by the real Kerry Shale! The official website of Mr Shale can be found:
+						<a href="https://www.kerryshale.com" target="_blank">HERE</a>! <br />
 						This fanpage is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Kerry Shale or his affiliates.
 					</BSAlert>
 				</p>
@@ -96,33 +96,8 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="row g-1 align-items-center">
-			<div class="col-12">
-				<p class="text-black-50">
-					<BSAlert Color="BSColor.Warning">
-						This website is still heavily under construction, an RSS feed and a login area will be added soon. Stay tuned! ;-)
-					</BSAlert>
-				</p>
-			</div>
-		</div>
 	</div>
 </div>
-
-@* if (IntroIsVisisble)
-{
-	<div class="section intro">
-		<div class="container">
-			<div>
-				<video preload="auto" playsinline autoplay width="100%" height="100%" muted>
-					<source src="/imgs/KS_walking.mp4" type="video/mp4">
-					<source src="/imgs/KS_walking.webm" type="video/webm">
-					<source src="/imgs/KS_walking.ogg" type="video/ogg">
-				</video>
-			</div>
-		</div>
-	</div>
-} *@
 
 <footer class="row mx-n4 border-top">
 	<div class="d-flex justify-center flex-grow-1 gap-4">
@@ -172,15 +147,8 @@
 </footer>
 
 @code {
-	//bool IntroIsVisisble = true;
-
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		await base.OnAfterRenderAsync(firstRender);
-
-		//await Task.Delay(TimeSpan.FromSeconds(30));
-
-		//IntroIsVisisble = false;
-		//StateHasChanged();
 	}
 }

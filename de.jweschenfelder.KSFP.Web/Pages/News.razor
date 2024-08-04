@@ -19,53 +19,31 @@
 			</div>
 		</div>
 
-		@if (currentItems.Any())
-		{
-			var currItem = currentItems.FirstOrDefault() ?? new NewsItemDto();
-			<div>
-				<div class="row mb-5 justify-content-between">
-					<div class="col-lg-6 text-black-100 order-lg-2">
-						<p>
-							<strong>@((MarkupString)(@currItem.HtmlTitleEn ?? String.Empty))</strong><br /><br />
-							<strong>@((MarkupString)(@currItem.HtmlSubTitleEn ?? String.Empty))</strong><br /><br />
-							@((MarkupString)(@currItem.HtmlBodyEn ?? String.Empty))
-						</p>
-						<p>
-							More information:<br />
-							@if (!String.IsNullOrWhiteSpace(@currItem.SecondaryUrlEn))
-							{
-								<div>
-									Link #1: <a href="@currItem.PrimaryUrlEn" target="_blank">@currItem.PrimaryUrlEn</a><br />
-									Link #2: <a href="@currItem.PrimaryUrlEn" target="_blank">@currItem.SecondaryUrlEn</a>
-								</div>
-							}
-							else
-							{
-								<div>Link: <a href="@currItem.PrimaryUrlEn" target="_blank">@currItem.PrimaryUrlEn</a></div>
-							}
-						</p>
-					</div>
-					<div class="col-lg-5 ps-lg-4 float-start">
-						<img src="@currItem.ImageUrlEn" alt="Image" class="img-fluid rounded-3" />
-					</div>
+		<div>
+			<div class="row mb-5 justify-content-between">
+				<div class="col-12 text-center">
+					<p>
+						Subscribe to new news via RSS: <a href="/webapi/rss" target="_blank"><img src="/imgs/subscribe-rss-button.jpg" alt="Image" class="rounded-3 mh-3rem" /></a>
+					</p>
+					<p>
+						How does RSS work? 1) Download a RSS Reader App, 2) subscribe to the RSS Feed Url.
+					</p>
 				</div>
 			</div>
-		}
+		</div>
 
-		@if (currentItems.Any() && currentItems.Count() > 1)
+		@if (currentItems.Any())
 		{
+			var ind = 0;
 			foreach (var item in currentItems)
 			{
-				var ind = currentItems.IndexOf(item);
-				if (ind == 0) continue;
-
 				<hr />
 
 				<div>
 					<div class="row my-5 justify-content-between">
 						<div class="col-lg-6 text-black-100 order-lg-2">
 							<p>
-								<strong>@((MarkupString)(@item.HtmlTitleEn ?? String.Empty))</strong><br /><br />
+								<strong>@(++ind)) @((MarkupString)(@item.HtmlTitleEn ?? String.Empty))</strong><br /><br />
 								<strong>@((MarkupString)(@item.HtmlSubTitleEn ?? String.Empty))</strong><br /><br />
 								@((MarkupString)(@item.HtmlBodyEn ?? String.Empty))
 							</p>
@@ -75,7 +53,7 @@
 								{
 									<div>
 										Link #1: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a><br />
-										Link #2: <a href="@item.PrimaryUrlEn" target="_blank">@item.SecondaryUrlEn</a>
+										Link #2: <a href="@item.SecondaryUrlEn" target="_blank">@item.SecondaryUrlEn</a>
 									</div>
 								}
 								else
@@ -85,7 +63,7 @@
 							</p>
 						</div>
 						<div class="col-lg-5 ps-lg-4 float-start">
-							<img src="images/netflix-wednesday-2022.jpg" alt="Image" class="img-fluid rounded-3" />
+							<img src="@item.ImageUrlEn" alt="Image" class="img-fluid rounded-3" />
 						</div>
 					</div>
 				</div>
@@ -100,7 +78,7 @@
 				<div class="row my-5 justify-content-between">
 					<div class="col-lg-12 text-black-100">
 						<p>
-							<strong>(2) Unofficial or unconfirmed news:</strong>
+							<strong>@(currentItems.Count()+1)) Unofficial or unconfirmed news:</strong>
 						</p>
 						<p>
 							<BSTable IsResponsive="true" IsStriped="true" IsBordered="true">
@@ -122,7 +100,8 @@
 												@if (!String.IsNullOrWhiteSpace(@item.SecondaryUrlEn))
 												{
 													<div>Link #1: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a><br />
-														Link #2: <a href="@item.PrimaryUrlEn" target="_blank">@item.SecondaryUrlEn</a></div>
+														Link #2: <a href="@item.SecondaryUrlEn" target="_blank">@item.SecondaryUrlEn</a>
+													</div>
 												} 
 												else
 												{
@@ -143,7 +122,7 @@
 												{
 													<div>
 														Link #1: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a><br />
-														Link #2: <a href="@item.PrimaryUrlEn" target="_blank">@item.SecondaryUrlEn</a>
+														Link #2: <a href="@item.SecondaryUrlEn" target="_blank">@item.SecondaryUrlEn</a>
 													</div>
 												}
 												else

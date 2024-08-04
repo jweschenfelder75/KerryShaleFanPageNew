@@ -21,7 +21,7 @@ namespace KerryShaleFanPage.Server.Controllers
         [HttpGet]
         public IEnumerable<GalleryItemDto> Get()
         {
-            return _galleryService.GetAll();
+            return _galleryService?.GetAll() ?? new List<GalleryItemDto>();
         }
     }
 }

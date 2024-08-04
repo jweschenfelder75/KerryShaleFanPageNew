@@ -21,7 +21,7 @@ namespace KerryShaleFanPage.Server.Controllers
         [HttpGet]
         public IEnumerable<NewsItemDto> Get()
         {
-            return _newsService.GetAll();
+            return _newsService?.GetAll() ?? new List<NewsItemDto>();
         }
     }
 }

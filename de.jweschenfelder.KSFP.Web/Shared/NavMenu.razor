@@ -1,4 +1,9 @@
-﻿<BSNavbar Class="bg-white" IsFixedTop="true" Expand="Size.Large">
+﻿@using de.jweschenfelder.KSFP.Shared.Objects
+@using de.jweschenfelder.KSFP.Shared.Enums
+@using de.jweschenfelder.KSFP.Web.Interfaces.BusinessLogic
+@inject IGenericService<NewsItemDto> NewsService
+
+<BSNavbar Class="bg-white" IsFixedTop="true" Expand="Size.Large">
     <BSContainer Container="Container.Fluid">
         <BSNavbarBrand Class="m-0 w-50"><a href="/" class="text-dark"><strong>Kerry Shale Fanpage</strong><span class="text-primary"><strong>.</strong></span></a></BSNavbarBrand>
         <BSCollapse IsInNavbar="true">
@@ -14,7 +19,10 @@
                         <BSNavItem Class="mx-1" Url="/Quotes">Quotes</BSNavItem>
                         <BSNavItem Class="mx-1" Url="/News">
                             News
-                            <span class="badge text-danger position-relative top-0 start-0 translate-middle m-1 p-0">(3)</span>
+                            @if (currentItems > 0)
+                            {
+                                <span class="badge text-danger position-relative top-0 start-0 translate-middle m-1 p-0">(@currentItems)</span>
+                            }
                         </BSNavItem>
                         <BSNavItem Class="mx-2" Url="/" IsDropdown="true">
                             <BSDropdown>
@@ -54,6 +62,16 @@
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? " d-none" : " show";
+
+    IList<NewsItemDto> items = new List<NewsItemDto>();
+    int currentItems = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        items = NewsService?.GetAll() ?? new List<NewsItemDto>();
+        currentItems = items?.Where(i => (i.Category == NewsCategoryEnum.Current || i.Category == NewsCategoryEnum.Unofficial)).Count() ?? 0;
+    }
 
     private void ToggleNavMenu()
     {

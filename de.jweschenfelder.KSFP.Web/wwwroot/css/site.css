@@ -508,6 +508,10 @@ button.btn-refresh {
     max-height: 6rem;
 }
 
+.mh-3rem {
+    max-height: 3rem;
+}
+
 .font-small {
     font-size: 0.8rem;
 }
