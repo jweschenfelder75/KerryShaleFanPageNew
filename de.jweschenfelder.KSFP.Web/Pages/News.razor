@@ -1,7 +1,8 @@
 ﻿@page "/News"
 @using de.jweschenfelder.KSFP.Shared.Objects
+@using de.jweschenfelder.KSFP.Shared.Enums
 @using de.jweschenfelder.KSFP.Web.Interfaces.BusinessLogic
-@inject IGenericService<GalleryItemDto> GalleryService
+@inject IGenericService<NewsItemDto> NewsService
 
 <PageTitle>Kerry Shale Fanpage: News</PageTitle>
 
@@ -18,215 +19,203 @@
 			</div>
 		</div>
 
-		<div>
-			<div class="row mb-5 justify-content-between">
-				<div class="col-lg-6 text-black-100 order-lg-2">
-					<p>
-						<strong>(1) Central Intelligence (ten-part audio drama series) </strong><br /><br />
-						<strong>
-							Fri 13 September 2024 and following days, (times TBD), on BBC Radio 4
-						</strong><br /><br />
-						Eloise Page ... Kim Cattrall<br />
-						Allen Dulles ... Ed Harris<br />
-						Richard Helms ... Johnny Flynn<br />
-						Frank Wisner ... Geoffrey Arend<br />
-						With <strong>Kerry Shale.</strong><br /><br />
-						Produced by Goldhawk Productions, Thoroughbred Studios and Rainfall Creations.<br />
-						First broadcast on BBC Radio 4 in September 2024.
-					</p>
-					<p>
-						"Kim Cattrall, Ed Harris and Johnny Flynn star in thrilling new audio drama Central Intelligence, coming soon to BBC Radio 4 and BBC Sounds along with other new commissions.<br />
-						The ten-part audio drama series, telling the inside story of the CIA, will begin on 13 September 2024 and is part of Radio 4’s popular Limelight podcast feed.<br />
-						Central Intelligence is produced by Emma Hearn at Goldhawk Productions Ltd, for BBC Radio 4, where it was co-commissioned by Alison Hindell, Radio 4’s Commissioning Editor for Drama and Fiction and Rhian Roberts, Commissioning Editor for Radio 4 Podcasts, Formats and Digital."
-					</p>
-					<p>
-						More information: <br />
-						- Link: <a href="https://www.bbc.co.uk/mediacentre/2024/kim-cattrall-ed-harris-johnny-flynn-new-audio-drama-central-intelligence" target="_blank">https://www.bbc.co.uk/mediacentre/2024/kim-cattrall-ed-harris-johnny-flynn-new-audio-drama-central-intelligence</a>
-					</p>
-				</div>
-				<div class="col-lg-5 ps-lg-4 float-start">
-					<img src="images/Bbc4.jpg" alt="Image" class="img-fluid rounded-3">
-				</div>
-			</div>
-		</div>
-
-		<hr />
-
-		<div>
-			<div class="row my-5 justify-content-between">
-				<div class="col-lg-6 text-black-100 order-lg-2">
-					<p>
-						<strong>(2) WEDNESDAY, Season 2 </strong><br /><br />
-						<strong>
-							(dates and times TBD, maybe in November 2024), on Netflix
-						</strong><br /><br />
-						Wednesday Addams ... Jenna Ortega<br />
-						With <strong>Kerry Shale.</strong><br /><br />
-						Created by: Alfred Gough; Miles Millar<br />
-						Produced by: Carmen Pepelea<br />
-						Produced for Netflix.<br />
-						First broadcast on Netflix in November 2022.
-					</p>
-					<p>
-						"Smart, sarcastic and a little dead inside, Wednesday Addams investigates a murder spree while making new friends — and foes — at Nevermore Academy."
-					</p>
-					<p>
-						More information: <br />
-						- Link #1: <a href="https://www.kerryshale.com/news" target="_blank">https://www.kerryshale.com/news</a><br />
-						- Link #2: <a href="https://www.netflix.com/title/81231974" target="_blank">https://www.netflix.com/title/81231974</a>
-					</p>
-				</div>
-				<div class="col-lg-5 ps-lg-4 float-start">
-					<img src="images/netflix-wednesday-2022.jpg" alt="Image" class="img-fluid rounded-3">
+		@if (currentItems.Any())
+		{
+			var currItem = currentItems.FirstOrDefault() ?? new NewsItemDto();
+			<div>
+				<div class="row mb-5 justify-content-between">
+					<div class="col-lg-6 text-black-100 order-lg-2">
+						<p>
+							<strong>@((MarkupString)(@currItem.HtmlTitleEn ?? String.Empty))</strong><br /><br />
+							<strong>@((MarkupString)(@currItem.HtmlSubTitleEn ?? String.Empty))</strong><br /><br />
+							@((MarkupString)(@currItem.HtmlBodyEn ?? String.Empty))
+						</p>
+						<p>
+							More information:<br />
+							@if (!String.IsNullOrWhiteSpace(@currItem.SecondaryUrlEn))
+							{
+								<div>
+									Link #1: <a href="@currItem.PrimaryUrlEn" target="_blank">@currItem.PrimaryUrlEn</a><br />
+									Link #2: <a href="@currItem.PrimaryUrlEn" target="_blank">@currItem.SecondaryUrlEn</a>
+								</div>
+							}
+							else
+							{
+								<div>Link: <a href="@currItem.PrimaryUrlEn" target="_blank">@currItem.PrimaryUrlEn</a></div>
+							}
+						</p>
+					</div>
+					<div class="col-lg-5 ps-lg-4 float-start">
+						<img src="@currItem.ImageUrlEn" alt="Image" class="img-fluid rounded-3" />
+					</div>
 				</div>
 			</div>
-		</div>
+		}
 
-		<hr />
+		@if (currentItems.Any() && currentItems.Count() > 1)
+		{
+			foreach (var item in currentItems)
+			{
+				var ind = currentItems.IndexOf(item);
+				if (ind == 0) continue;
 
-		<div>
-			<div class="row my-5 justify-content-between">
-				<div class="col-lg-12 text-black-100">
-					<p>
-						<strong>(2) Unofficial or unconfirmed news:</strong>
-					</p>
-					<p>
-						<BSTable IsResponsive="true" IsStriped="true" IsBordered="true">
-							<BSTHead>
-								<BSTR>
-									<BSTD>When</BSTD>
-									<BSTD>What</BSTD>
-									<BSTD>Where</BSTD>
-									<BSTD>Status</BSTD>
-								</BSTR>
-							</BSTHead>
-							<BSTBody>
-								<BSTR>
-									<BSTD>Wed 01 May 2024</BSTD>
-									<BSTD>
-										Bob Sinfield wrote that 'Peter Sellers At Sea' is currently recorded/in production (with <strong>Kerry Shale</strong>, Jack Klaff, Bob Sinfield, and Kathryn Haywood), <br />
-										source #1: <a href="https://www.facebook.com/bob.sinfield/posts/pfbid0BZ318STyLZf9KxcNEeYVyjQEWMiB5kW4BQ2dozVUdoEhsQ1DaQVysLxF8iaXEg91l" target="_blank">https://www.facebook.com/bob.sinfield/posts/pfbid0BZ318STyLZf9KxcNEeYVyjQEWMiB5kW4BQ2dozVUdoEhsQ1DaQVysLxF8iaXEg91l</a>, <br />
-										source #2: <a href="https://x.com/bobsinfield/status/1785572523691684073" target="_blank">https://x.com/bobsinfield/status/1785572523691684073</a>, <br />
-										source #3: <a href="https://www.instagram.com/p/C6bi4BjoNtE" target="_blank">https://www.instagram.com/p/C6bi4BjoNtE</a>
-									</BSTD>
-									<BSTD>Light Year, Soho</BSTD>
-									<BSTD>Unofficial</BSTD>
-								</BSTR>
-							</BSTBody>
-						</BSTable>
-					</p>
+				<hr />
+
+				<div>
+					<div class="row my-5 justify-content-between">
+						<div class="col-lg-6 text-black-100 order-lg-2">
+							<p>
+								<strong>@((MarkupString)(@item.HtmlTitleEn ?? String.Empty))</strong><br /><br />
+								<strong>@((MarkupString)(@item.HtmlSubTitleEn ?? String.Empty))</strong><br /><br />
+								@((MarkupString)(@item.HtmlBodyEn ?? String.Empty))
+							</p>
+							<p>
+								More information:<br />
+								@if (!String.IsNullOrWhiteSpace(@item.SecondaryUrlEn))
+								{
+									<div>
+										Link #1: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a><br />
+										Link #2: <a href="@item.PrimaryUrlEn" target="_blank">@item.SecondaryUrlEn</a>
+									</div>
+								}
+								else
+								{
+									<div>Link: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a></div>
+								}
+							</p>
+						</div>
+						<div class="col-lg-5 ps-lg-4 float-start">
+							<img src="images/netflix-wednesday-2022.jpg" alt="Image" class="img-fluid rounded-3" />
+						</div>
+					</div>
+				</div>
+			}
+		}
+
+		@if (unofficialItems.Any() || unconfirmedItems.Any())
+		{
+			<hr />
+
+			<div>
+				<div class="row my-5 justify-content-between">
+					<div class="col-lg-12 text-black-100">
+						<p>
+							<strong>(2) Unofficial or unconfirmed news:</strong>
+						</p>
+						<p>
+							<BSTable IsResponsive="true" IsStriped="true" IsBordered="true">
+								<BSTHead>
+									<BSTR>
+										<BSTD>When</BSTD>
+										<BSTD>What</BSTD>
+										<BSTD>Where</BSTD>
+										<BSTD>Status</BSTD>
+									</BSTR>
+								</BSTHead>
+								<BSTBody>
+									@foreach (var item in unofficialItems)
+									{
+										<BSTR>
+											<BSTD>@((MarkupString)(@item.HtmlSubTitleEn ?? String.Empty))</BSTD>
+											<BSTD>
+												@((MarkupString)(@item.HtmlTitleEn ?? String.Empty))<br />
+												@if (!String.IsNullOrWhiteSpace(@item.SecondaryUrlEn))
+												{
+													<div>Link #1: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a><br />
+														Link #2: <a href="@item.PrimaryUrlEn" target="_blank">@item.SecondaryUrlEn</a></div>
+												} 
+												else
+												{
+													<div>Link: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a></div>
+												}
+											</BSTD>
+											<BSTD>@item.OptionalWhereEn</BSTD>
+											<BSTD>@item.Category.ToString()</BSTD>
+										</BSTR>
+									}
+									@foreach (var item in unconfirmedItems)
+									{
+										<BSTR>
+											<BSTD>@((MarkupString)(@item.HtmlSubTitleEn ?? String.Empty))</BSTD>
+											<BSTD>
+												@((MarkupString)(@item.HtmlTitleEn ?? String.Empty))<br />
+												@if (!String.IsNullOrWhiteSpace(@item.SecondaryUrlEn))
+												{
+													<div>
+														Link #1: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a><br />
+														Link #2: <a href="@item.PrimaryUrlEn" target="_blank">@item.SecondaryUrlEn</a>
+													</div>
+												}
+												else
+												{
+													<div>Link: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a></div>
+												}
+											</BSTD>
+											<BSTD>@item.OptionalWhereEn</BSTD>
+											<BSTD>@item.Category.ToString()</BSTD>
+										</BSTR>
+									}
+								</BSTBody>
+							</BSTable>
+						</p>
+					</div>
 				</div>
 			</div>
-		</div>
+		}
 
-		<hr />
+		@if (oldItems.Any())
+		{
+			<hr />
 
-		<div>
-			<div class="row my-5 justify-content-between">
-				<div class="col-lg-12 text-black-100">
-					<p>
-						<strong>Archive/Old news: Missed something?</strong>
-					</p>
-					<p>
-						<BSTable IsResponsive="true" IsStriped="true" IsBordered="true">
-							<BSTHead>
-								<BSTR>
-									<BSTD>When</BSTD>
-									<BSTD>What</BSTD>
-									<BSTD>Where</BSTD>
-								</BSTR>
-							</BSTHead>
-							<BSTBody>
-								<BSTR>
-									<BSTD>Thu 25 Jul 2024</BSTD>
-									<BSTD>The Poor Olympics and the Flying Housewife</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/m0021bdd" target="_blank">https://www.bbc.co.uk/programmes/m0021bdd</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Sun 21 Jul 2024</BSTD>
-									<BSTD>Jacqueline Susann - Valley of the Dolls (Omnibus, Episode 3)</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b00mp6nc" target="_blank">https://www.bbc.co.uk/programmes/b00mp6nc</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Thu 18 Jul 2024</BSTD>
-									<BSTD>Jacqueline Susann - Valley of the Dolls: 14. The Takeover</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b00mk688" target="_blank">https://www.bbc.co.uk/programmes/b00mk688</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Wed 17 Jul 2024</BSTD>
-									<BSTD>Jacqueline Susann - Valley of the Dolls: 13. An Old Flame</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b00mjs2l" target="_blank">https://www.bbc.co.uk/programmes/b00mjs2l</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Tue 16 Jul 2024</BSTD>
-									<BSTD>Jacqueline Susann - Valley of the Dolls: 12. Fateful News</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b00mjnwj" target="_blank">https://www.bbc.co.uk/programmes/b00mjnwj</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Mon 15 Jul 2024</BSTD>
-									<BSTD>Jacqueline Susann - Valley of the Dolls: 11. The Cat Fight</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b00mjktk" target="_blank">https://www.bbc.co.uk/programmes/b00mjktk</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Fri 12 Jul 2024</BSTD>
-									<BSTD>Jacqueline Susann - Valley of the Dolls: 10. A Falling Star</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b00mfhv8" target="_blank">https://www.bbc.co.uk/programmes/b00mfhv8</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Thu 11 Jul 2024</BSTD>
-									<BSTD>Jacqueline Susann - Valley of the Dolls: 9. Adverts and Oscars</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b00mf36d" target="_blank">https://www.bbc.co.uk/programmes/b00mf36d</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Sat 29 Jun 2024</BSTD>
-									<BSTD>Roger Stennett - Stardust</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/m0020jjr" target="_blank">https://www.bbc.co.uk/programmes/m0020jjr</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Fri 28 Jun 2024</BSTD>
-									<BSTD>Drama on 4: Dinner with Dylan</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/m000qhgn" target="_blank">https://www.bbc.co.uk/programmes/m000qhgn</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Fri 28 Jun 2024</BSTD>
-									<BSTD>Secret Agent X-9 by Dashiell Hammett: 4. You're the Top</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b007jq13" target="_blank">https://www.bbc.co.uk/programmes/b007jq13</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Thu 27 Jun 2024</BSTD>
-									<BSTD>Secret Agent X-9 by Dashiell Hammett: 3. The Powers That Be</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b007jq0q" target="_blank">https://www.bbc.co.uk/programmes/b007jq0q</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Mon 24 Jun 2024</BSTD>
-									<BSTD>Minor Adjustment: At the End of the Rainbow (episode 4/6)</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/b0b3jncg" target="_blank">https://www.bbc.co.uk/programmes/b0b3jncg</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Sun 16 Jun 2024</BSTD>
-									<BSTD>Drama on BBC Radio 3: Jubilee! (with Kerry Shale)</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/m00202zc" target="_blank">https://www.bbc.co.uk/programmes/m00202zc</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Thu 28 Mar 2024</BSTD>
-									<BSTD>Free Thinking: Pranks (Interview with Kerry Shale)</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/m001xf0r" target="_blank">https://www.bbc.co.uk/programmes/m001xf0r</a></BSTD>
-								</BSTR>
-								<BSTR>
-									<BSTD>Thu 07 Mar 2024</BSTD>
-									<BSTD>The Kubrick Test, drama by Kerry Shale</BSTD>
-									<BSTD>Listen here: <a href="https://www.bbc.co.uk/programmes/m000h1mb" target="_blank">https://www.bbc.co.uk/programmes/m000h1mb</a></BSTD>
-								</BSTR>
-							</BSTBody>
-						</BSTable>
-					</p>
+			<div>
+				<div class="row my-5 justify-content-between">
+					<div class="col-lg-12 text-black-100">
+						<p>
+							<strong>Archive/Old news: Missed something?</strong>
+						</p>
+						<p>
+							<BSTable IsResponsive="true" IsStriped="true" IsBordered="true">
+								<BSTHead>
+									<BSTR>
+										<BSTD>When</BSTD>
+										<BSTD>What</BSTD>
+										<BSTD>Where</BSTD>
+									</BSTR>
+								</BSTHead>
+								<BSTBody>
+									@foreach (var item in oldItems)
+									{
+										<BSTR>
+											<BSTD>@((MarkupString)(@item.HtmlSubTitleEn ?? String.Empty))</BSTD>
+											<BSTD>@((MarkupString)(@item.HtmlTitleEn ?? String.Empty))</BSTD>
+											<BSTD>Link: <a href="@item.PrimaryUrlEn" target="_blank">@item.PrimaryUrlEn</a></BSTD>
+										</BSTR>
+									}
+								</BSTBody>
+							</BSTable>
+						</p>
+					</div>
 				</div>
 			</div>
-		</div>
+		}
 
 	</div>
 </div>
 
 @code {
+	IList<NewsItemDto> items = new List<NewsItemDto>();
+	IList<NewsItemDto> currentItems = new List<NewsItemDto>();
+	IList<NewsItemDto> unofficialItems = new List<NewsItemDto>();
+	IList<NewsItemDto> unconfirmedItems = new List<NewsItemDto>();
+	IList<NewsItemDto> oldItems = new List<NewsItemDto>();
 
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		items = NewsService.GetAll() ?? new List<NewsItemDto>();
+		currentItems = items.Where(i => i.Category == NewsCategoryEnum.Current).ToList() ?? new List<NewsItemDto>();
+		unofficialItems = items.Where(i => i.Category == NewsCategoryEnum.Unofficial).ToList() ?? new List<NewsItemDto>();
+		unconfirmedItems = items.Where(i => i.Category == NewsCategoryEnum.Uncomfirmed).ToList() ?? new List<NewsItemDto>();
+		oldItems = items.Where(i => i.Category == NewsCategoryEnum.Old).ToList() ?? new List<NewsItemDto>();
+	}
 }

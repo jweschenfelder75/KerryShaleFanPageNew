@@ -10,6 +10,7 @@ namespace de.jweschenfelder.KSFP.Shared.Enums
 		None = 0,
 		Current = 1,
 		Old = 2,
-		Uncomfirmed = 3
+		Unofficial = 3,
+		Uncomfirmed = 4
 	}
 }
