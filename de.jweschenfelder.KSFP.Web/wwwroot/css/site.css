@@ -491,3 +491,27 @@ button.btn-refresh {
         max-height: 90%;
         max-width: 90%;
     }
+
+.mw-70 {
+    max-width: 70%;
+}
+
+.mh-70 {
+    max-height: 70%;
+}
+
+.mh-30 {
+    max-height: 30%;
+}
+
+.mh-6rem {
+    max-height: 6rem;
+}
+
+.font-small {
+    font-size: 0.8rem;
+}
+
+.font-smaller {
+    font-size: 0.7rem;
+}
