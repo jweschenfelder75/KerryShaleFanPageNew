@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using System.Globalization
 @using System.Threading
-@using de.jweschenfelder.KSFP.Web.Pages.Components
+@inject IJSRuntime JS
 
 <PageTitle>Kerry Shale Fanpage: Home</PageTitle>
 
@@ -115,20 +115,19 @@
 			<div class="col-12">
 				<p class="text-black text-center">
 					<h3 class="text-center fw-bold">Normal time vs Shale time</h3>
-					<InitializeTimeZone />
 				</p>
 			</div>
 			<div class="row g-1 align-items-center">
 				<div class="col-md-6">
 					<p class="text-black text-center">
-						<strong>Normal time:</strong><br />
-						<div class="fs-5"><LocalTime DateTime="@normalUtcNowTime" /></div>
+						<strong>Normal time:</strong>
+						<div class="fs-5 w-100 text-center"><p class="p-0 m-0 lh-0" id="normal-time"></p> </div>
 					</p>
 				</div>
 				<div class="col-md-6">
 					<p class="text-black text-center">
-						<strong>Shale time:</strong><br />
-						<div class="fs-5"><LocalTime DateTime="@shaleUtcNowTime" /></div>
+						<strong>Shale time:</strong>
+						<div class="fs-5 w-100 text-center"><p class="p-0 m-0 lh-0" id="shale-time"></p> </div>
 					</p>
 				</div>
 			</div>
@@ -194,10 +193,9 @@
 
 		var timer = new System.Threading.Timer((_) =>
 		{
-			InvokeAsync(() =>
+			InvokeAsync(async () =>
 			{
-				normalUtcNowTime = DateTime.Now;
-				shaleUtcNowTime = normalUtcNowTime?.AddMinutes(10);
+				await JS.InvokeVoidAsync("GetDateTime");
 				StateHasChanged();
 			});
 		}, null, 0, 1000);

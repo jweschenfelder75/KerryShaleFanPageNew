@@ -3,7 +3,6 @@ using de.jweschenfelder.KSFP.Shared.Configuration;
 using de.jweschenfelder.KSFP.Shared.Objects;
 using de.jweschenfelder.KSFP.Web.Areas.Identity;
 using de.jweschenfelder.KSFP.Web.Data;
-using de.jweschenfelder.KSFP.Web.Extensions;
 using de.jweschenfelder.KSFP.Web.Interfaces.BusinessLogic;
 using de.jweschenfelder.KSFP.Web.Interfaces.MailAndSmsServices;
 using de.jweschenfelder.KSFP.Web.Interfaces.Security;
@@ -39,8 +38,6 @@ builder.Services.AddCors(options =>
 							.AllowAnyMethod();
 					});
 });
-
-builder.Services.AddBrowserTimeProvider();
 
 builder.Services.Configure<NewsSettings>(builder.Configuration.GetSection("NewsSettings"));
 builder.Services.Configure<GallerySettings>(builder.Configuration.GetSection("GallerySettings"));

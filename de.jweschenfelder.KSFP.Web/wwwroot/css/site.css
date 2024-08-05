@@ -519,3 +519,7 @@ button.btn-refresh {
 .font-smaller {
     font-size: 0.7rem;
 }
+
+.lh-0 {
+    line-height: 0;
+}
