@@ -263,7 +263,7 @@
 	private void UpdateTime()
 	{
 		var britishTime = DateTime.Now;
-		var shaleTime = DateTime.Now.AddMinutes(-10);
+		var shaleTime = DateTime.Now.AddMinutes(10);
 		var britishTimeCurr = britishTime.ToString("HH:mm:ss");
 		var britishTimePrev = britishTime.AddSeconds(-1).ToString("HH:mm:ss");
 		var shaleTimeCurr = shaleTime.ToString("HH:mm:ss");
