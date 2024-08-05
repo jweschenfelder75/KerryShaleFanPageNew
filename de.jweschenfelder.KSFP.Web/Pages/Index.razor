@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using System.Globalization
+@using System.Threading
 
 <PageTitle>Kerry Shale Fanpage: Home</PageTitle>
 
@@ -17,7 +19,7 @@
 
 		<div class="row g-1 align-items-center">
 			<div class="col-12">
-				<p class="text-black-50">
+				<p class="text-black">
 					<BSAlert Color="BSColor.Info">
 						This is a fanpage operated by a fan, it is not operated by the real Kerry Shale! The official website of Mr Shale can be found:
 						<a href="https://www.kerryshale.com" target="_blank">HERE</a>! <br />
@@ -28,6 +30,17 @@
 		</div>
 
 		<div class="row g-1 mb-4">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+				<div class="single-portfolio">
+					<a href="/Projects/Wednesday">
+						<img src="/images/img_0.jpg" alt="Image" class="img-fluid" />
+						<div class="contents">
+							<h3>Wednesday, Season 2</h3>
+							<div class="cat">Netflix series</div>
+						</div>
+					</a>
+				</div>
+			</div>
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 				<div class="single-portfolio">
 					<a href="/Projects/Sandman">
@@ -50,6 +63,7 @@
 					</a>
 				</div>
 			</div>
+
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 				<div class="single-portfolio">
 					<a href="/Projects/ChickenPolice">
@@ -61,7 +75,6 @@
 					</a>
 				</div>
 			</div>
-
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 				<div class="single-portfolio">
 					<a href="/Projects/IceAirportAlaska">
@@ -84,7 +97,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+			@* <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 				<div class="single-portfolio">
 					<a href="#">
 						<img src="/images/img_6.jpg" alt="Image" class="img-fluid" />
@@ -94,8 +107,81 @@
 						</div>
 					</a>
 				</div>
+			</div> *@
+		</div>
+
+		<div class="row my-5 g-1 align-items-center">
+			<div class="col-12">
+				<p class="text-black text-center">
+					<h3 class="text-center fw-bold">Normal time vs Shale time</h3>
+				</p>
+			</div>
+			<div class="row g-1 align-items-center">
+				<div class="col-md-6">
+					<p class="text-black text-center">
+						<strong>Normal time:</strong><br />
+						<div class="odometer">
+							<div class="digit">
+								<div class="digit-container @((hour1NormalTimeCont[0] != hour1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@hour1NormalTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((hour2NormalTimeCont[0] != hour2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@hour2NormalTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container top-2px">:</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((minute1NormalTimeCont[0] != minute1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@minute1NormalTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((minute2NormalTimeCont[0] != minute2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@minute2NormalTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container top-2px">:</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((second1NormalTimeCont[0] != second1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@second1NormalTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((second2NormalTimeCont[0] != second2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@second2NormalTimeCont[0]</div>
+							</div>
+						</div>
+					</p>
+				</div>
+				<div class="col-md-6">
+					<p class="text-black text-center">
+						<strong>Shale time:</strong><br />
+						<div class="odometer">
+							<div class="digit">
+								<div class="digit-container @((hour1ShaleTimeCont[0] != hour1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@hour1ShaleTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((hour2ShaleTimeCont[0] != hour2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@hour2ShaleTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container top-2px">:</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((minute1ShaleTimeCont[0] != minute1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@minute1ShaleTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((minute2ShaleTimeCont[0] != minute2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@minute2ShaleTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container top-2px">:</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((second1ShaleTimeCont[0] != second1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@second1ShaleTimeCont[0]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((second2ShaleTimeCont[0] != second2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@second2ShaleTimeCont[0]</div>
+							</div>
+						</div>
+					</p>
+				</div>
 			</div>
 		</div>
+
 	</div>
 </div>
 
@@ -147,6 +233,82 @@
 </footer>
 
 @code {
+	string hour1NormalTimeCont = "0 0";
+	string hour2NormalTimeCont = "0 0";
+	string minute1NormalTimeCont = "0 0";
+	string minute2NormalTimeCont = "0 0";
+	string second1NormalTimeCont = "0 0";
+	string second2NormalTimeCont = "0 0";
+	string hour1ShaleTimeCont = "0 0";
+	string hour2ShaleTimeCont = "0 0";
+	string minute1ShaleTimeCont = "0 0";
+	string minute2ShaleTimeCont = "0 0";
+	string second1ShaleTimeCont = "0 0";
+	string second2ShaleTimeCont = "0 0";
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var timer = new System.Threading.Timer((_) =>
+		{
+			InvokeAsync(() =>
+			{
+				UpdateTime();
+				StateHasChanged();
+			});
+		}, null, 0, 1000);
+	}
+
+	private void UpdateTime()
+	{
+		var britishTime = DateTime.Now;
+		var shaleTime = DateTime.Now.AddMinutes(-10);
+		var britishTimeCurr = britishTime.ToString("HH:mm:ss");
+		var britishTimePrev = britishTime.AddSeconds(-1).ToString("HH:mm:ss");
+		var shaleTimeCurr = shaleTime.ToString("HH:mm:ss");
+		var shaleTimePrev = shaleTime.AddSeconds(-1).ToString("HH:mm:ss");
+
+		var hour1NormalTimeCurr = int.Parse(britishTimeCurr[0].ToString(), NumberStyles.Integer);
+		var hour2NormalTimeCurr = int.Parse(britishTimeCurr[1].ToString(), NumberStyles.Integer);
+		var minute1NormalTimeCurr = int.Parse(britishTimeCurr[3].ToString(), NumberStyles.Integer);
+		var minute2NormalTimeCurr = int.Parse(britishTimeCurr[4].ToString(), NumberStyles.Integer);
+		var second1NormalTimeCurr = int.Parse(britishTimeCurr[6].ToString(), NumberStyles.Integer);
+		var second2NormalTimeCurr = int.Parse(britishTimeCurr[7].ToString(), NumberStyles.Integer);
+		var hour1ShaleTimeCurr = int.Parse(shaleTimeCurr[0].ToString(), NumberStyles.Integer);
+		var hour2ShaleTimeCurr = int.Parse(shaleTimeCurr[1].ToString(), NumberStyles.Integer);
+		var minute1ShaleTimeCurr = int.Parse(shaleTimeCurr[3].ToString(), NumberStyles.Integer);
+		var minute2ShaleTimeCurr = int.Parse(shaleTimeCurr[4].ToString(), NumberStyles.Integer);
+		var second1ShaleTimeCurr = int.Parse(shaleTimeCurr[6].ToString(), NumberStyles.Integer);
+		var second2ShaleTimeCurr = int.Parse(shaleTimeCurr[7].ToString(), NumberStyles.Integer);
+
+		var hour1NormalTimePrev = int.Parse(britishTimePrev[0].ToString(), NumberStyles.Integer);
+		var hour2NormalTimePrev = int.Parse(britishTimePrev[1].ToString(), NumberStyles.Integer);
+		var minute1NormalTimePrev = int.Parse(britishTimePrev[3].ToString(), NumberStyles.Integer);
+		var minute2NormalTimePrev = int.Parse(britishTimePrev[4].ToString(), NumberStyles.Integer);
+		var second1NormalTimePrev = int.Parse(britishTimePrev[6].ToString(), NumberStyles.Integer);
+		var second2NormalTimePrev = int.Parse(britishTimePrev[7].ToString(), NumberStyles.Integer);
+		var hour1ShaleTimePrev = int.Parse(shaleTimePrev[0].ToString(), NumberStyles.Integer);
+		var hour2ShaleTimePrev = int.Parse(shaleTimePrev[1].ToString(), NumberStyles.Integer);
+		var minute1ShaleTimePrev = int.Parse(shaleTimePrev[3].ToString(), NumberStyles.Integer);
+		var minute2ShaleTimePrev = int.Parse(shaleTimePrev[4].ToString(), NumberStyles.Integer);
+		var second1ShaleTimePrev = int.Parse(shaleTimePrev[6].ToString(), NumberStyles.Integer);
+		var second2ShaleTimePrev = int.Parse(shaleTimePrev[7].ToString(), NumberStyles.Integer);
+
+		hour1NormalTimeCont = $"{hour1NormalTimeCurr} {hour1NormalTimePrev}";
+		hour2NormalTimeCont = $"{hour1NormalTimeCurr} {hour1NormalTimePrev}";
+		minute1NormalTimeCont = $"{minute1NormalTimeCurr} {minute1NormalTimePrev}";
+		minute2NormalTimeCont = $"{minute2NormalTimeCurr} {minute2NormalTimePrev}";
+		second1NormalTimeCont = $"{second1NormalTimeCurr} {second1NormalTimePrev}";
+		second2NormalTimeCont = $"{second2NormalTimeCurr} {second2NormalTimePrev}";
+		hour1ShaleTimeCont = $"{hour1ShaleTimeCurr} {hour1ShaleTimePrev}";
+		hour2ShaleTimeCont = $"{hour1ShaleTimeCurr} {hour1ShaleTimePrev}";
+		minute1ShaleTimeCont = $"{minute1ShaleTimeCurr} {minute1ShaleTimePrev}";
+		minute2ShaleTimeCont = $"{minute2ShaleTimeCurr} {minute2ShaleTimePrev}";
+		second1ShaleTimeCont = $"{second1ShaleTimeCurr} {second1ShaleTimePrev}";
+		second2ShaleTimeCont = $"{second2ShaleTimeCurr} {second2ShaleTimePrev}";
+	}
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		await base.OnAfterRenderAsync(firstRender);
