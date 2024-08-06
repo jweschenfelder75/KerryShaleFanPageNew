@@ -6,6 +6,7 @@ using de.jweschenfelder.KSFP.Web.Data;
 using de.jweschenfelder.KSFP.Web.Interfaces.BusinessLogic;
 using de.jweschenfelder.KSFP.Web.Interfaces.MailAndSmsServices;
 using de.jweschenfelder.KSFP.Web.Interfaces.Security;
+using de.jweschenfelder.KSFP.Web.Services.BusinessLogic;
 using de.jweschenfelder.KSFP.Web.Services.Security;
 using KerryShaleFanPage.Server.Services.MailAndSmsServices;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -82,6 +83,7 @@ builder.Services.AddSignalR(e =>
 });
 
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+builder.Services.AddScoped<TimeZoneService>();
 builder.Services.AddScoped<WeatherForecastService>();
 builder.Services.AddScoped<ISecuredConfigurationService, SecuredConfigurationService>();
 builder.Services.AddScoped<IGmailMailAndSmsService, GmailMailAndSmsService>();

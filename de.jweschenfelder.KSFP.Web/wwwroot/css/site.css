@@ -448,7 +448,7 @@ button.btn-refresh {
 }
 
     .gallery .image-container .image {
-        columns: 15rem 4;
+        columns: 10rem 6;
         gap: 1.4rem;
     }
 

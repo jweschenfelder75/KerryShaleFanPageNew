@@ -1,6 +1,8 @@
 ﻿@page "/"
 @using System.Globalization
 @using System.Threading
+@using de.jweschenfelder.KSFP.Web.Services.BusinessLogic
+@inject TimeZoneService TimeZoneService
 @inject IJSRuntime JS
 
 <PageTitle>Kerry Shale Fanpage: Home</PageTitle>
@@ -121,13 +123,13 @@
 				<div class="col-md-6">
 					<p class="text-black text-center">
 						<strong>Normal time:</strong>
-						<div class="fs-5 w-100 text-center"><p class="p-0 m-0 lh-0" id="normal-time"></p> </div>
+						<div class="fs-5 w-100 text-center">@LocalTime</div>
 					</p>
 				</div>
 				<div class="col-md-6">
 					<p class="text-black text-center">
 						<strong>Shale time:</strong>
-						<div class="fs-5 w-100 text-center"><p class="p-0 m-0 lh-0" id="shale-time"></p> </div>
+						<div class="fs-5 w-100 text-center">@ShaleTime</div>
 					</p>
 				</div>
 			</div>
@@ -184,25 +186,40 @@
 </footer>
 
 @code {
-	DateTime? normalUtcNowTime = DateTime.Now;
-	DateTime? shaleUtcNowTime = DateTime.Now;
+	DateTime LocalTime { get; set; } = DateTime.Now;
+	DateTime ShaleTime { get; set; } = DateTime.Now;
 
 	protected override async Task OnInitializedAsync()
 	{
 		await base.OnInitializedAsync();
-
-		var timer = new System.Threading.Timer((_) =>
-		{
-			InvokeAsync(async () =>
-			{
-				await JS.InvokeVoidAsync("GetDateTime");
-				StateHasChanged();
-			});
-		}, null, 0, 1000);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
+		var timer = new System.Threading.Timer((_) =>
+		{
+			InvokeAsync(async () =>
+			{
+				var localTime = await TimeZoneService.GetLocalDateTime();
+				LocalTime = ToDateTime(localTime);
+				ShaleTime = LocalTime.AddMinutes(10);
+				StateHasChanged();
+			});
+		}, null, 0, 1000);
+
 		await base.OnAfterRenderAsync(firstRender);
+	}
+
+	private DateTime ToDateTime(string dateTimeString)
+	{
+		// 06/08/2024, 06:02:16
+		if (DateTime.TryParseExact(dateTimeString, "dd/MM/yyyy, HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
+		{
+			return result;
+		} 
+		else
+		{
+			return DateTime.Now;
+		}
 	}
 }
