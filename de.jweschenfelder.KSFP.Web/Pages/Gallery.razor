@@ -41,8 +41,8 @@
                         var ind = items.IndexOf(item);
                         <div class="image-space">
                             <BSButton Color="BSColor.Primary" OnClick="(args => ShowModalDlg(args, ind))" Target="modaldlg" Class="image-button rounded-3">
-                                <img src="@item.ThumbnailUrlEn" alt="@item.AltEn" class="rounded-3"><br />
-                                <div class="image-text text-center rounded-3">@item.HtmlCreditsEn</div>
+                                <img src="@item.ThumbnailUrlEn" alt="@item.AltEn"><br />
+                                <div class="image-text text-center">@item.HtmlCreditsEn</div>
                             </BSButton>
                         </div>
                     }
