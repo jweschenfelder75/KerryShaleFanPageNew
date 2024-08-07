@@ -524,3 +524,11 @@ button.btn-refresh {
 .lh-0 {
     line-height: 0;
 }
+
+.digital-clock {
+    display: block;
+}
+
+    .digital-clock .digit {
+        display: inline-block;
+    }

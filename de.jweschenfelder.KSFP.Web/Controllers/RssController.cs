@@ -38,15 +38,17 @@ namespace de.jweschenfelder.KSFP.Web.Controllers
 			currentItems = items?.Where(i => i.Category == NewsCategoryEnum.Current).ToList() ?? new List<NewsItemDto>();
 
 			// Get the current url
-			var url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/webapi/rss";
+			var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+			var url = $"{baseUrl}/webapi/rss";
 
 			var syndicationItems = new List<SyndicationItem>();
 			foreach (var item in currentItems)
 			{
 				var title = item.HtmlTitleEn;
+				var imageUrl = $"{baseUrl}/{item.ImageUrlEn}";
 				var content = !string.IsNullOrWhiteSpace(item.SecondaryUrlEn)
-							? $"<strong>{item.HtmlTitleEn}</strong><br/><br/><strong>{item.HtmlSubTitleEn}</strong><br/><br/><img src=\"{item.ImageUrlEn}\" alt=\"Image\" class=\"img-fluid rounded-3\" /><br/><br/>{item.HtmlBodyEn}<br/><br/>More information:<br />Link #1: <a href=\"{item.PrimaryUrlEn}\" target=\"_blank\">{item.PrimaryUrlEn}</a><br />Link #2: <a href=\"{item.SecondaryUrlEn}\" target=\"_blank\">{item.SecondaryUrlEn}</a>"
-							: $"<strong>{item.HtmlTitleEn}</strong><br/><br/><strong>{item.HtmlSubTitleEn}</strong><br/><br/><img src=\"{item.ImageUrlEn}\" alt=\"Image\" class=\"img-fluid rounded-3\" /><br/><br/>{item.HtmlBodyEn}<br/><br/>More information:<br />Link: <a href=\"{item.PrimaryUrlEn}\" target=\"_blank\">{item.PrimaryUrlEn}</a>";
+							? $"<strong>{item.HtmlTitleEn}</strong><br/><br/><strong>{item.HtmlSubTitleEn}</strong><br/><br/><img src=\"{imageUrl}\" alt=\"Image\" class=\"img-fluid rounded-3\" /><br/><br/>{item.HtmlBodyEn}<br/><br/>More information:<br />Link #1: <a href=\"{item.PrimaryUrlEn}\" target=\"_blank\">{item.PrimaryUrlEn}</a><br />Link #2: <a href=\"{item.SecondaryUrlEn}\" target=\"_blank\">{item.SecondaryUrlEn}</a>"
+							: $"<strong>{item.HtmlTitleEn}</strong><br/><br/><strong>{item.HtmlSubTitleEn}</strong><br/><br/><img src=\"{imageUrl}\" alt=\"Image\" class=\"img-fluid rounded-3\" /><br/><br/>{item.HtmlBodyEn}<br/><br/>More information:<br />Link: <a href=\"{item.PrimaryUrlEn}\" target=\"_blank\">{item.PrimaryUrlEn}</a>";
 				syndicationItems.Add(new SyndicationItem(title, content, new Uri(url)));
 			}
 

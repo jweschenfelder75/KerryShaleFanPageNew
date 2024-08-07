@@ -115,21 +115,39 @@
 
 		<div class="row my-5 g-1 align-items-center">
 			<div class="col-12">
-				<p class="text-black text-center">
+				<p class="text-center">
 					<h3 class="text-center fw-bold">Normal time vs Shale time</h3>
 				</p>
 			</div>
 			<div class="row g-1 align-items-center">
 				<div class="col-md-6">
 					<p class="text-black text-center">
-						<strong>Normal time:</strong>
-						<div class="fs-5 w-100 text-center">@LocalTime</div>
+						<div class="row">
+							<div class="col-12">
+								<strong>Normal time:</strong>
+							</div>
+						</div>
+						<div class="row fs-5 fw-bold">
+							<div class="col-12 digital-clock">
+								<div class="digit">@LocalDateStr&nbsp;</div>
+								<div class="digit blink">@LocalTimeStr</div>
+							</div>
+						</div>
 					</p>
 				</div>
 				<div class="col-md-6">
 					<p class="text-black text-center">
-						<strong>Shale time:</strong>
-						<div class="fs-5 w-100 text-center">@ShaleTime</div>
+						<div class="row">
+							<div class="col-12">
+								<strong>Shale time:</strong>
+							</div>
+						</div>
+						<div class="row fs-5 fw-bold">
+							<div class="col-12 digital-clock">
+								<div class="digit">@ShaleDateStr&nbsp;</div>
+								<div class="digit blink">@ShaleTimeStr</div>
+							</div>
+						</div>
 					</p>
 				</div>
 			</div>
@@ -186,8 +204,12 @@
 </footer>
 
 @code {
-	DateTime LocalTime { get; set; } = DateTime.Now;
-	DateTime ShaleTime { get; set; } = DateTime.Now;
+	DateTime LocalDateTime = DateTime.Now;
+	DateTime ShaleDateTime = DateTime.Now;
+	string LocalDateStr => LocalDateTime.ToString("dd/MM/yyyy");
+	string ShaleDateStr => ShaleDateTime.ToString("dd/MM/yyyy");
+	string LocalTimeStr => LocalDateTime.ToString("HH:mm:ss");
+	string ShaleTimeStr => ShaleDateTime.ToString("HH:mm:ss");
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -196,18 +218,18 @@
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
+		await base.OnAfterRenderAsync(firstRender);
+
 		var timer = new System.Threading.Timer((_) =>
 		{
 			InvokeAsync(async () =>
 			{
 				var localTime = await TimeZoneService.GetLocalDateTime();
-				LocalTime = ToDateTime(localTime);
-				ShaleTime = LocalTime.AddMinutes(10);
+				LocalDateTime = ToDateTime(localTime);
+				ShaleDateTime = LocalDateTime.AddMinutes(10);
 				StateHasChanged();
 			});
 		}, null, 0, 1000);
-
-		await base.OnAfterRenderAsync(firstRender);
 	}
 
 	private DateTime ToDateTime(string dateTimeString)
