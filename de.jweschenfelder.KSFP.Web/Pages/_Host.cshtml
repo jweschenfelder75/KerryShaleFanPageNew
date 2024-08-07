@@ -13,10 +13,13 @@
         <span id="components-reconnect-max-retries"></span>)
     </div>
     <div class="failedToConnect">
-        The connection to the server probably timed out and failed to connect.<br />Please try to reconnect to the server: <input type="button" class="text-bold text-danger px-2" value="Reconnect" onclick="ReconnectToServer()" />
+        The connection to the server probably timed out and failed to connect.<br />Please try to reconnect to the server: <input type="button" class="text-bold text-danger px-2" value="Reconnect" onclick="ReconnectToServer()" /><br />
+        Or if it does not work, please try to reload the website: <input type="button" class="text-bold text-danger px-2" value="Reload website" onclick="ReloadPage()" />
         <script>
             function ReconnectToServer() {
-                window.Blazor.reconnect();
+                setTimeout(function () {
+                    window.Blazor.reconnect();
+                });
             }
         </script>
     </div>

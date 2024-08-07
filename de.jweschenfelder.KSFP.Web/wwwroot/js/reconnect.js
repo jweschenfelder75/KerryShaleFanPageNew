@@ -22,7 +22,9 @@
                     const result = await Blazor.reconnect();
                     if (!result) {
                         // The server was reached, but the connection was rejected; reload the page.
-                        location.reload();
+                        setTimeout(function () {
+                            window.location.reload();
+                        });
                         return;
                     }
 
@@ -34,7 +36,9 @@
             }
 
             // Retried too many times; reload the page.
-            location.reload();
+            setTimeout(function () {
+                window.location.reload();
+            });
         })();
 
         return {
@@ -50,8 +54,8 @@
     Blazor.start({
         configureSignalR: function (builder) {
             builder
-                .withServerTimeout(30000)
-                .withKeepAliveInterval(30000);
+                .withServerTimeout(60000)
+                .withKeepAliveInterval(5000);
         },
         reconnectionOptions: {
             maxRetries: 20,
