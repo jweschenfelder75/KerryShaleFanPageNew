@@ -1,7 +1,6 @@
 ﻿using de.jweschenfelder.KSFP.Shared.Enums;
 using de.jweschenfelder.KSFP.Shared.Objects;
 using de.jweschenfelder.KSFP.Web.Interfaces.BusinessLogic;
-using KerryShaleFanPage.Server.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.ServiceModel.Syndication;
 using System.Text;

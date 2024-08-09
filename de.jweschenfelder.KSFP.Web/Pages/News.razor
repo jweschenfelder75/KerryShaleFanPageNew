@@ -1,8 +1,11 @@
 ﻿@page "/News"
+@using Microsoft.AspNetCore.Http;
 @using de.jweschenfelder.KSFP.Shared.Objects
 @using de.jweschenfelder.KSFP.Shared.Enums
 @using de.jweschenfelder.KSFP.Web.Interfaces.BusinessLogic
 @inject IGenericService<NewsItemDto> NewsService
+@inject LinkGenerator LinkGenerator
+@inject IHttpContextAccessor HttpContextAccessor
 
 <PageTitle>Kerry Shale Fanpage: News</PageTitle>
 
@@ -20,13 +23,27 @@
 		</div>
 
 		<div>
+			<BSModal IsCentered="true" DataId="modaldlg" Class="modaldlg text-center" IsScrollable="true">
+				<Content>
+					<div class="text-center">
+						Download/use an <a href="https://feedreader.com/download" target="_blank">RSS Reader App</a><br /> and then subscribe to this RSS Feed Url:<br /><br />@rssFeedUrl
+					</div>
+				</Content>
+				<Footer Context="modal">
+					<BSButton MarginStart="Margins.Auto" Color="BSColor.Secondary" OnClick="modal.HideAsync">Close</BSButton>
+				</Footer>
+			</BSModal>
+
 			<div class="row mb-5 justify-content-between">
 				<div class="col-12 text-center">
 					<p>
-						Subscribe to new news via RSS: <a href="/webapi/rss" target="_blank"><img src="/imgs/subscribe-rss-button.jpg" alt="Image" class="rounded-3 mh-3rem" /></a>
+						Subscribe to new news via RSS: 
+						<BSButton Color="BSColor.Primary" Target="modaldlg" Class="rounded-image-button">
+							<img src="/imgs/subscribe-rss-button.jpg" alt="Image" class="rounded-3 mh-3rem" />
+						</BSButton>
 					</p>
 					<p>
-						How does RSS work? 1) Download a RSS Reader App, 2) subscribe to the RSS Feed Url.
+						How does RSS work? 1) Download an <a href="https://feedreader.com/download" target="_blank">RSS Reader App</a>, 2) subscribe to the RSS Feed Url.
 					</p>
 				</div>
 			</div>
@@ -187,10 +204,16 @@
 	IList<NewsItemDto> unofficialItems = new List<NewsItemDto>();
 	IList<NewsItemDto> unconfirmedItems = new List<NewsItemDto>();
 	IList<NewsItemDto> oldItems = new List<NewsItemDto>();
+	HttpRequest? currRequest = null;
+	string? baseUrl = null;
+	string rssFeedUrl = string.Empty;
 
 	protected override async Task OnInitializedAsync()
 	{
 		await base.OnInitializedAsync();
+		currRequest = HttpContextAccessor.HttpContext?.Request;
+		baseUrl = (currRequest is not null) ? $"{currRequest.Scheme}://{currRequest.Host}{currRequest.PathBase}" : null;
+		rssFeedUrl = (baseUrl is not null) ? $"{baseUrl}/webapi/rss" : string.Empty;
 		items = NewsService.GetAll() ?? new List<NewsItemDto>();
 		currentItems = items.Where(i => i.Category == NewsCategoryEnum.Current).ToList() ?? new List<NewsItemDto>();
 		unofficialItems = items.Where(i => i.Category == NewsCategoryEnum.Unofficial).ToList() ?? new List<NewsItemDto>();

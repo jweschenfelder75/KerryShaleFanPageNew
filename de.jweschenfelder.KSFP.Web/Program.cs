@@ -81,6 +81,8 @@ builder.Services.AddSignalR(e =>
 	e.KeepAliveInterval = TimeSpan.FromSeconds(5);
 });
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<TimeZoneService>();
 builder.Services.AddScoped<WeatherForecastService>();
