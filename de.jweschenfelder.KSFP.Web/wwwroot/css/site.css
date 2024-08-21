@@ -575,11 +575,11 @@ button.btn-refresh {
     }
 
     25% {
-        opacity: 1.0;
+        opacity: 0.5;
     }
 
     50% {
-        opacity: 1.0;
+        opacity: 0.75;
     }
 
     75% {
@@ -587,6 +587,6 @@ button.btn-refresh {
     }
 
     100% {
-        opacity: 0.25;
+        opacity: 1.0;
     }
 }

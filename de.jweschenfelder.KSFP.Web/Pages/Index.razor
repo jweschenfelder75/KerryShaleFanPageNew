@@ -127,28 +127,28 @@
 						<strong>Normal time:</strong><br />
 						<div class="clock">
 							<div class="digit">
-								<div class="digit-container @((hour1NormalTimeCont[0] != hour1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@hour1NormalTimeCont[0]</div>
+								<div class="digit-container @((hour1NormalTimeCont[0] != hour1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@hour1NormalTimeCont[2]</div>
 							</div>
 							<div class="digit">
-								<div class="digit-container @((hour2NormalTimeCont[0] != hour2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@hour2NormalTimeCont[0]</div>
-							</div>
-							<div class="digit">
-								<div class="digit-container top-2px">:</div>
-							</div>
-							<div class="digit">
-								<div class="digit-container @((minute1NormalTimeCont[0] != minute1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@minute1NormalTimeCont[0]</div>
-							</div>
-							<div class="digit">
-								<div class="digit-container @((minute2NormalTimeCont[0] != minute2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@minute2NormalTimeCont[0]</div>
+								<div class="digit-container @((hour2NormalTimeCont[0] != hour2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@hour2NormalTimeCont[2]</div>
 							</div>
 							<div class="digit">
 								<div class="digit-container top-2px">:</div>
 							</div>
 							<div class="digit">
-								<div class="digit-container @((second1NormalTimeCont[0] != second1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@second1NormalTimeCont[0]</div>
+								<div class="digit-container @((minute1NormalTimeCont[0] != minute1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@minute1NormalTimeCont[2]</div>
 							</div>
 							<div class="digit">
-								<div class="digit-container @((second2NormalTimeCont[0] != second2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@second2NormalTimeCont[0]</div>
+								<div class="digit-container @((minute2NormalTimeCont[0] != minute2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@minute2NormalTimeCont[2]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container top-2px">:</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((second1NormalTimeCont[0] != second1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@second1NormalTimeCont[2]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((second2NormalTimeCont[0] != second2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@second2NormalTimeCont[2]</div>
 							</div>
 						</div>
 					</p>
@@ -158,28 +158,28 @@
 						<strong>Shale time:</strong><br />
 						<div class="clock">
 							<div class="digit">
-								<div class="digit-container @((hour1ShaleTimeCont[0] != hour1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@hour1ShaleTimeCont[0]</div>
+								<div class="digit-container @((hour1ShaleTimeCont[0] != hour1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@hour1ShaleTimeCont[2]</div>
 							</div>
 							<div class="digit">
-								<div class="digit-container @((hour2ShaleTimeCont[0] != hour2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@hour2ShaleTimeCont[0]</div>
-							</div>
-							<div class="digit">
-								<div class="digit-container top-2px">:</div>
-							</div>
-							<div class="digit">
-								<div class="digit-container @((minute1ShaleTimeCont[0] != minute1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@minute1ShaleTimeCont[0]</div>
-							</div>
-							<div class="digit">
-								<div class="digit-container @((minute2ShaleTimeCont[0] != minute2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@minute2ShaleTimeCont[0]</div>
+								<div class="digit-container @((hour2ShaleTimeCont[0] != hour2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@hour2ShaleTimeCont[2]</div>
 							</div>
 							<div class="digit">
 								<div class="digit-container top-2px">:</div>
 							</div>
 							<div class="digit">
-								<div class="digit-container @((second1ShaleTimeCont[0] != second1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@second1ShaleTimeCont[0]</div>
+								<div class="digit-container @((minute1ShaleTimeCont[0] != minute1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@minute1ShaleTimeCont[2]</div>
 							</div>
 							<div class="digit">
-								<div class="digit-container @((second2ShaleTimeCont[0] != second2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@second2ShaleTimeCont[0]</div>
+								<div class="digit-container @((minute2ShaleTimeCont[0] != minute2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@minute2ShaleTimeCont[2]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container top-2px">:</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((second1ShaleTimeCont[0] != second1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@second1ShaleTimeCont[2]</div>
+							</div>
+							<div class="digit">
+								<div class="digit-container @((second2ShaleTimeCont[0] != second2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@second2ShaleTimeCont[2]</div>
 							</div>
 						</div>
 					</p>
@@ -310,18 +310,18 @@
 		var second1ShaleTimePrev = int.Parse(shaleTimePrev[6].ToString(), NumberStyles.Integer);
 		var second2ShaleTimePrev = int.Parse(shaleTimePrev[7].ToString(), NumberStyles.Integer);
 
-		hour1NormalTimeCont = $"{hour1NormalTimeCurr} {hour1NormalTimePrev}";
-		hour2NormalTimeCont = $"{hour2NormalTimeCurr} {hour2NormalTimePrev}";
-		minute1NormalTimeCont = $"{minute1NormalTimeCurr} {minute1NormalTimePrev}";
-		minute2NormalTimeCont = $"{minute2NormalTimeCurr} {minute2NormalTimePrev}";
-		second1NormalTimeCont = $"{second1NormalTimeCurr} {second1NormalTimePrev}";
-		second2NormalTimeCont = $"{second2NormalTimeCurr} {second2NormalTimePrev}";
-		hour1ShaleTimeCont = $"{hour1ShaleTimeCurr} {hour1ShaleTimePrev}";
-		hour2ShaleTimeCont = $"{hour2ShaleTimeCurr} {hour2ShaleTimePrev}";
-		minute1ShaleTimeCont = $"{minute1ShaleTimeCurr} {minute1ShaleTimePrev}";
-		minute2ShaleTimeCont = $"{minute2ShaleTimeCurr} {minute2ShaleTimePrev}";
-		second1ShaleTimeCont = $"{second1ShaleTimeCurr} {second1ShaleTimePrev}";
-		second2ShaleTimeCont = $"{second2ShaleTimeCurr} {second2ShaleTimePrev}";
+		hour1NormalTimeCont = $"{hour1NormalTimePrev} {hour1NormalTimeCurr}";
+		hour2NormalTimeCont = $"{hour2NormalTimePrev} {hour2NormalTimeCurr}";
+		minute1NormalTimeCont = $"{minute1NormalTimePrev} {minute1NormalTimeCurr}";
+		minute2NormalTimeCont = $"{minute2NormalTimePrev} {minute2NormalTimeCurr}";
+		second1NormalTimeCont = $"{second1NormalTimePrev} {second1NormalTimeCurr}";
+		second2NormalTimeCont = $"{second2NormalTimePrev} {second2NormalTimeCurr}";
+		hour1ShaleTimeCont = $"{hour1ShaleTimePrev} {hour1ShaleTimeCurr}";
+		hour2ShaleTimeCont = $"{hour2ShaleTimePrev} {hour2ShaleTimeCurr}";
+		minute1ShaleTimeCont = $"{minute1ShaleTimePrev} {minute1ShaleTimeCurr}";
+		minute2ShaleTimeCont = $"{minute2ShaleTimePrev} {minute2ShaleTimeCurr}";
+		second1ShaleTimeCont = $"{second1ShaleTimePrev} {second1ShaleTimeCurr}";
+		second2ShaleTimeCont = $"{second2ShaleTimePrev} {second2ShaleTimeCurr}";
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
