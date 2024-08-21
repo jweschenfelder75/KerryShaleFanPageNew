@@ -13,8 +13,8 @@
                 "ImageUrlDe": "/images/Bbc4.jpg",
                 "PrimaryUrlEn": "https://www.bbc.co.uk/mediacentre/2024/kim-cattrall-ed-harris-johnny-flynn-new-audio-drama-central-intelligence",
                 "PrimaryUrlDe": "https://www.bbc.co.uk/mediacentre/2024/kim-cattrall-ed-harris-johnny-flynn-new-audio-drama-central-intelligence",
-                "SecondaryUrlEn": null,
-                "SecondaryUrlDe": null
+                "SecondaryUrlEn": "https://www.imdb.com/title/tt33077721",
+                "SecondaryUrlDe": "https://www.imdb.com/title/tt33077721"
             },
             {
                 "Category": "Current",
@@ -29,9 +29,7 @@
                 "PrimaryUrlEn": "https://gfmanimation.com/films/ozi-voice-of-the-jungle/",
                 "PrimaryUrlDe": "https://gfmanimation.com/films/ozi-voice-of-the-jungle/",
                 "SecondaryUrlEn": "https://www.instagram.com/p/C-arylhAWRe/",
-                "SecondaryUrlDe": "https://www.instagram.com/p/C-arylhAWRe/",
-                "OptionalWhereEn": null,
-                "OptionalWhereDe": null
+                "SecondaryUrlDe": "https://www.instagram.com/p/C-arylhAWRe/"
             },
             {
                 "Category": "Current",
@@ -46,9 +44,7 @@
                 "PrimaryUrlEn": "https://www.kerryshale.com/news",
                 "PrimaryUrlDe": "https://www.kerryshale.com/news",
                 "SecondaryUrlEn": "https://www.netflix.com/title/81231974",
-                "SecondaryUrlDe": "https://www.netflix.com/title/81231974",
-                "OptionalWhereEn": null,
-                "OptionalWhereDe": null
+                "SecondaryUrlDe": "https://www.netflix.com/title/81231974"
             },
             {
                 "Category": "Unofficial",
