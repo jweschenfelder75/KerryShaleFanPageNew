@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Blazor.Bootstrap" Version="2.2.0" />
+    <PackageReference Include="Blazor.Extensions.Canvas" Version="1.1.1" />
     <PackageReference Include="BlazorCaptcha" Version="1.6.0" />
     <PackageReference Include="BlazorStrap" Version="5.2.100.61524" />
     <PackageReference Include="BlazorStrap.Extensions.BSDataTable" Version="1.5.1" />

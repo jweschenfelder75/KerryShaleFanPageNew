@@ -1,0 +1,183 @@
+﻿@using System.Globalization
+@using System.Threading
+@using de.jweschenfelder.KSFP.Web.Services.BusinessLogic
+@inject TimeZoneService TimeZoneService
+@inject IJSRuntime jsRuntime
+
+<div class="row">
+	<div class="col-12">
+		<p class="text-black text-center">
+			<h3 class="text-center fw-bold">Normal time vs Shale time</h3>
+		</p>
+	</div>
+</div>
+<div class="row g-1 align-items-center">
+	<div class="col-md-6">
+		<p class="text-black text-center">
+			<strong>Normal time:</strong><br />
+			<div class="clock">
+				<div class="digit">
+					<div class="digit-container @((hour1NormalTimeCont[0] != hour1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@hour1NormalTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((hour2NormalTimeCont[0] != hour2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@hour2NormalTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container top-2px">:</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((minute1NormalTimeCont[0] != minute1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@minute1NormalTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((minute2NormalTimeCont[0] != minute2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@minute2NormalTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container top-2px">:</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((second1NormalTimeCont[0] != second1NormalTimeCont[2]) ? "digit-one" : string.Empty)">@second1NormalTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((second2NormalTimeCont[0] != second2NormalTimeCont[2]) ? "digit-one" : string.Empty)">@second2NormalTimeCont[2]</div>
+				</div>
+			</div>
+		</p>
+	</div>
+	<div class="col-md-6">
+		<p class="text-black text-center">
+			<strong>Shale time:</strong><br />
+			<div class="clock">
+				<div class="digit">
+					<div class="digit-container @((hour1ShaleTimeCont[0] != hour1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@hour1ShaleTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((hour2ShaleTimeCont[0] != hour2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@hour2ShaleTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container top-2px">:</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((minute1ShaleTimeCont[0] != minute1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@minute1ShaleTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((minute2ShaleTimeCont[0] != minute2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@minute2ShaleTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container top-2px">:</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((second1ShaleTimeCont[0] != second1ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@second1ShaleTimeCont[2]</div>
+				</div>
+				<div class="digit">
+					<div class="digit-container @((second2ShaleTimeCont[0] != second2ShaleTimeCont[2]) ? "digit-one" : string.Empty)">@second2ShaleTimeCont[2]</div>
+				</div>
+			</div>
+		</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col-12">
+		<p class="text-black text-center">
+			(Professor Shale (wife of Kerry Shale) wrote on Twitter once, "25 years married, we still set house clocks to Shale time (10 minutes ahead) and it still works to get me out of the door on time.")
+		</p>
+	</div>
+</div>
+
+@code {
+	string hour1NormalTimeCont = "0 0";
+	string hour2NormalTimeCont = "0 0";
+	string minute1NormalTimeCont = "0 0";
+	string minute2NormalTimeCont = "0 0";
+	string second1NormalTimeCont = "0 0";
+	string second2NormalTimeCont = "0 0";
+	string hour1ShaleTimeCont = "0 0";
+	string hour2ShaleTimeCont = "0 0";
+	string minute1ShaleTimeCont = "0 0";
+	string minute2ShaleTimeCont = "0 0";
+	string second1ShaleTimeCont = "0 0";
+	string second2ShaleTimeCont = "0 0";
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var timer = new System.Threading.Timer((_) =>
+		{
+			InvokeAsync(async () =>
+			{
+				await UpdateTime();
+				StateHasChanged();
+			});
+		}, null, 0, 1000);
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+	}
+
+	private async ValueTask UpdateTime()
+	{
+		var localTime = await TimeZoneService.GetLocalDateTime();
+		var normalTime = ToDateTime(localTime);
+		var shaleTime = normalTime.AddMinutes(10);
+		// string normalDateStr => normalTime.ToString("dd/MM/yyyy");
+		// string shaleDateStr => shaleTime.ToString("dd/MM/yyyy");
+		var normalTimeCurr = normalTime.ToString("HH:mm:ss");
+		var normalTimePrev = normalTime.AddSeconds(-1).ToString("HH:mm:ss");
+		var shaleTimeCurr = shaleTime.ToString("HH:mm:ss");
+		var shaleTimePrev = shaleTime.AddSeconds(-1).ToString("HH:mm:ss");
+
+		var hour1NormalTimeCurr = int.Parse(normalTimeCurr[0].ToString(), NumberStyles.Integer);
+		var hour2NormalTimeCurr = int.Parse(normalTimeCurr[1].ToString(), NumberStyles.Integer);
+		var minute1NormalTimeCurr = int.Parse(normalTimeCurr[3].ToString(), NumberStyles.Integer);
+		var minute2NormalTimeCurr = int.Parse(normalTimeCurr[4].ToString(), NumberStyles.Integer);
+		var second1NormalTimeCurr = int.Parse(normalTimeCurr[6].ToString(), NumberStyles.Integer);
+		var second2NormalTimeCurr = int.Parse(normalTimeCurr[7].ToString(), NumberStyles.Integer);
+		var hour1ShaleTimeCurr = int.Parse(shaleTimeCurr[0].ToString(), NumberStyles.Integer);
+		var hour2ShaleTimeCurr = int.Parse(shaleTimeCurr[1].ToString(), NumberStyles.Integer);
+		var minute1ShaleTimeCurr = int.Parse(shaleTimeCurr[3].ToString(), NumberStyles.Integer);
+		var minute2ShaleTimeCurr = int.Parse(shaleTimeCurr[4].ToString(), NumberStyles.Integer);
+		var second1ShaleTimeCurr = int.Parse(shaleTimeCurr[6].ToString(), NumberStyles.Integer);
+		var second2ShaleTimeCurr = int.Parse(shaleTimeCurr[7].ToString(), NumberStyles.Integer);
+
+		var hour1NormalTimePrev = int.Parse(normalTimePrev[0].ToString(), NumberStyles.Integer);
+		var hour2NormalTimePrev = int.Parse(normalTimePrev[1].ToString(), NumberStyles.Integer);
+		var minute1NormalTimePrev = int.Parse(normalTimePrev[3].ToString(), NumberStyles.Integer);
+		var minute2NormalTimePrev = int.Parse(normalTimePrev[4].ToString(), NumberStyles.Integer);
+		var second1NormalTimePrev = int.Parse(normalTimePrev[6].ToString(), NumberStyles.Integer);
+		var second2NormalTimePrev = int.Parse(normalTimePrev[7].ToString(), NumberStyles.Integer);
+		var hour1ShaleTimePrev = int.Parse(shaleTimePrev[0].ToString(), NumberStyles.Integer);
+		var hour2ShaleTimePrev = int.Parse(shaleTimePrev[1].ToString(), NumberStyles.Integer);
+		var minute1ShaleTimePrev = int.Parse(shaleTimePrev[3].ToString(), NumberStyles.Integer);
+		var minute2ShaleTimePrev = int.Parse(shaleTimePrev[4].ToString(), NumberStyles.Integer);
+		var second1ShaleTimePrev = int.Parse(shaleTimePrev[6].ToString(), NumberStyles.Integer);
+		var second2ShaleTimePrev = int.Parse(shaleTimePrev[7].ToString(), NumberStyles.Integer);
+
+		hour1NormalTimeCont = $"{hour1NormalTimePrev} {hour1NormalTimeCurr}";
+		hour2NormalTimeCont = $"{hour2NormalTimePrev} {hour2NormalTimeCurr}";
+		minute1NormalTimeCont = $"{minute1NormalTimePrev} {minute1NormalTimeCurr}";
+		minute2NormalTimeCont = $"{minute2NormalTimePrev} {minute2NormalTimeCurr}";
+		second1NormalTimeCont = $"{second1NormalTimePrev} {second1NormalTimeCurr}";
+		second2NormalTimeCont = $"{second2NormalTimePrev} {second2NormalTimeCurr}";
+		hour1ShaleTimeCont = $"{hour1ShaleTimePrev} {hour1ShaleTimeCurr}";
+		hour2ShaleTimeCont = $"{hour2ShaleTimePrev} {hour2ShaleTimeCurr}";
+		minute1ShaleTimeCont = $"{minute1ShaleTimePrev} {minute1ShaleTimeCurr}";
+		minute2ShaleTimeCont = $"{minute2ShaleTimePrev} {minute2ShaleTimeCurr}";
+		second1ShaleTimeCont = $"{second1ShaleTimePrev} {second1ShaleTimeCurr}";
+		second2ShaleTimeCont = $"{second2ShaleTimePrev} {second2ShaleTimeCurr}";
+	}
+
+	private DateTime ToDateTime(string dateTimeString)
+	{
+		// 06/08/2024, 06:02:16
+		if (DateTime.TryParseExact(dateTimeString, "dd/MM/yyyy, HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
+		{
+			return result;
+		}
+		else
+		{
+			return DateTime.Now;
+		}
+	}
+}
