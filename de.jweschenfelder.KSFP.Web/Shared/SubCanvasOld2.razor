@@ -1,0 +1,150 @@
+﻿@using Blazor.Extensions
+@using Blazor.Extensions.Canvas
+@using Blazor.Extensions.Canvas.WebGL
+
+<div class="row">
+	<div class="col-12">
+		<p class="text-black text-center text-nowrap d-block">
+			<h3 class="text-center fw-bold text-nowrap d-inline-block">Test</h3>&nbsp;
+			<BlazorBootstrap.Icon Name="@BlazorBootstrap.IconName.InfoCircleFill" Color="BlazorBootstrap.IconColor.Info" data-blazorstrap="tt-info-webgl" />
+			<BSTooltip Placement="Placement.Top" Target="tt-info-webgl">WebGL (experimental, <br/>using Blazor.Extensions.<br/>Canvas.WebGL)</BSTooltip>
+		</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col-12">
+		<p class="text-black text-center">
+			<BECanvas Width="150" Height="150" @ref="_canvasReference"></BECanvas>
+		</p>
+	</div>
+</div>
+
+@code {
+	private WebGLContext? _context;
+	protected BECanvasComponent? _canvasReference;
+
+	private const string VS_SOURCE = "attribute vec3 aPos; " +
+									"attribute vec3 aColor; " +
+									"varying vec3 vColor; " +
+									"void main() { " +
+									"gl_Position = vec4(aPos, 1.0); " +
+									"vColor = aColor; " +
+									"}";
+
+	private const string FS_SOURCE = "precision mediump float; " +
+									"varying vec3 vColor; " +
+									"void main() { " +
+									"gl_FragColor = vec4(vColor, 1.0); " +
+									"}";
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+
+		await Test();
+	}
+
+	private async Task Test()
+	{
+		_context = await _canvasReference.CreateWebGLAsync(new WebGLContextAttributes
+			{
+				PowerPreference = WebGLContextAttributes.POWER_PREFERENCE_HIGH_PERFORMANCE
+			});
+
+		var program = await InitProgramAsync(_context, VS_SOURCE, FS_SOURCE);
+
+		await _context.UseProgramAsync(program);
+
+		var angle = -1.0f;
+		while (true)
+		{
+			await Task.Delay(50);
+
+			await _context.BeginBatchAsync();
+
+			await this._context.ClearColorAsync(1, 1, 1, 1); // this call does not draw anything, so it does not need to be included in the explicit batch
+			await _context.ClearAsync(BufferBits.COLOR_BUFFER_BIT | BufferBits.DEPTH_BUFFER_BIT);
+
+			var vertexBuffer = await _context.CreateBufferAsync();
+			await _context.BindBufferAsync(BufferType.ARRAY_BUFFER, vertexBuffer);
+
+			var vertices = new List<float>();
+			vertices.Add(-1.0f * MathF.Cos(angle)); // V1.X
+			vertices.Add(-1.0f); // V1.Y
+			vertices.Add(0.0f * MathF.Sin(angle)); // V1.Z
+			vertices.Add(1.0f); // V1.R
+			vertices.Add(0.0f); // V1.G
+			vertices.Add(0.0f); // V1.B
+			vertices.Add(0.0f); // V2.X
+			vertices.Add(-1.0f); // V2.Y
+			vertices.Add(0.0f); // V2.Z
+			vertices.Add(0.0f); // V2.R
+			vertices.Add(1.0f); // V2.G
+			vertices.Add(0.0f); // V2.B
+			vertices.Add(0.0f * -MathF.Sin(angle)); // V3.X
+			vertices.Add(1.0f); // V3.Y
+			vertices.Add(0.0f * MathF.Cos(angle)); // V3.Z
+			vertices.Add(0.0f); // V3.R
+			vertices.Add(0.0f); // V3.G
+			vertices.Add(1.0f); // V3.B
+
+			await _context.BufferDataAsync(BufferType.ARRAY_BUFFER, vertices.ToArray(), BufferUsageHint.STATIC_DRAW);
+
+			await _context.VertexAttribPointerAsync(0, 3, DataType.FLOAT, false, 6 * sizeof(float), 0);
+			await _context.VertexAttribPointerAsync(1, 3, DataType.FLOAT, false, 6 * sizeof(float), 3 * sizeof(float));
+			await _context.EnableVertexAttribArrayAsync(0);
+			await _context.EnableVertexAttribArrayAsync(1);
+
+			await _context.DrawArraysAsync(Primitive.TRIANGLES, 0, 3);
+
+			await _context.DeleteBufferAsync(vertexBuffer);
+
+			await _context.EndBatchAsync();
+
+			if (angle == 1.0f)
+			{
+				angle = -1.0f;
+			}
+			else
+			{
+				angle += 0.05f;
+			}
+		}
+	}
+
+	private async Task<WebGLProgram> InitProgramAsync(WebGLContext gl, string vsSource, string fsSource)
+	{
+		var vertexShader = await LoadShaderAsync(gl, ShaderType.VERTEX_SHADER, vsSource);
+		var fragmentShader = await LoadShaderAsync(gl, ShaderType.FRAGMENT_SHADER, fsSource);
+
+		var program = await gl.CreateProgramAsync();
+		await gl.AttachShaderAsync(program, vertexShader);
+		await gl.AttachShaderAsync(program, fragmentShader);
+		await gl.LinkProgramAsync(program);
+
+		await gl.DeleteShaderAsync(vertexShader);
+		await gl.DeleteShaderAsync(fragmentShader);
+
+		return program;
+	}
+
+	private async Task<WebGLShader> LoadShaderAsync(WebGLContext gl, ShaderType type, string source)
+	{
+		var shader = await gl.CreateShaderAsync(type);
+
+		await gl.ShaderSourceAsync(shader, source);
+		await gl.CompileShaderAsync(shader);
+
+		if (!await gl.GetShaderParameterAsync<bool>(shader, ShaderParameter.COMPILE_STATUS))
+		{
+			await gl.DeleteShaderAsync(shader);
+		}
+
+		return shader;
+	}
+}

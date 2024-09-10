@@ -1,0 +1,45 @@
+// main.js
+function threeExample(canvasId) { // NOTE: three dancing balls example
+
+	var canvas = document.getElementById(canvasId);
+
+	// NOTE: create the scene to place objects in
+	var scene = new THREE.Scene();
+	scene.background = new THREE.Color(0xffffff); // NOTE: make the background blue for the sky
+	scene.matrixWorldAutoUpdate = true;
+
+	// NOTE: the width and height of the parent element; this information is static and should be updated when the browser window is resized
+	var size = {
+		width: canvas.parentNode.offsetWidth,
+		height: canvas.parentNode.offsetHeight
+	};
+
+	// NOTE: create the camera with 53 degree field of view; this is how the scene is viewed by the user
+	var camera = new THREE.PerspectiveCamera(65, size.width / size.height, 1, 5000);
+
+	var renderer = new THREE.WebGLRenderer({
+		canvas: canvas
+	});
+	renderer.shadowMap.enabled = true;
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(size.width, size.height);
+	renderer.render(scene, camera);
+
+	var geometry = new THREE.TorusGeometry(10, 3, 16, 100); 
+	var material = new THREE.MeshNormalMaterial({ color: 0x7c00c7, wireframe: true });
+	var torus = new THREE.Mesh(geometry, material);
+	scene.add(torus);
+
+	camera.position.z = 25;
+
+	// NOTE: MUST HAVE AN ANIMATE FUNCTION
+	var animate = function () {
+		torus.rotation.x += 0.01;
+		torus.rotation.y += 0.01;
+
+		requestAnimationFrame(animate);
+		renderer.render(scene, camera);
+	};
+	animate();
+
+}
