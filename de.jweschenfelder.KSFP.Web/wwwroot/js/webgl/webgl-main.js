@@ -92,8 +92,8 @@ function init() {
 
 function onWindowResize() {
 
-	const canvasWidth = window.innerWidth;
-	const canvasHeight = window.innerHeight;
+	const canvasWidth = canvas.offsetWidth;
+	const canvasHeight = canvas.offsetHeight;
 
 	renderer.setSize(canvasWidth, canvasHeight);
 

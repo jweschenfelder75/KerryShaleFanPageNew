@@ -40,7 +40,10 @@
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/webgl/webgl-main.js");
+		if (firstRender) 
+		{
+			module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/webgl/webgl-main.js");
+		}
 	}
 
 	async ValueTask IAsyncDisposable.DisposeAsync()
