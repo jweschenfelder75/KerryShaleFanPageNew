@@ -11,7 +11,9 @@ using de.jweschenfelder.KSFP.Web.Services.Security;
 using KerryShaleFanPage.Server.Services.MailAndSmsServices;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("newssettings.json", optional: true, reloadOnChange: true);
@@ -109,6 +111,18 @@ else
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+var provider = new FileExtensionContentTypeProvider();
+// Add new mappings
+provider.Mappings[".fbx"] = "application/octet-stream";
+provider.Mappings[".myapp"] = "application/x-msdownload";
+
+app.UseStaticFiles(new StaticFileOptions
+{
+	FileProvider = new PhysicalFileProvider(
+		Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
+	ContentTypeProvider = provider
+});
 
 app.UseRouting();
 
