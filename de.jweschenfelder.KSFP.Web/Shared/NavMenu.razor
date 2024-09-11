@@ -2,6 +2,7 @@
 @using de.jweschenfelder.KSFP.Shared.Enums
 @using de.jweschenfelder.KSFP.Web.Interfaces.BusinessLogic
 @inject IGenericService<NewsItemDto> NewsService
+@inject NavigationManager NavigationManager
 
 <BSNavbar Class="bg-white" IsFixedTop="true" Expand="Size.Large">
     <BSContainer Container="Container.Fluid">
@@ -13,7 +14,7 @@
             <Content>
                 <div>
                     <BSNav Class="mt-1">
-                        <BSNavItem Class="mx-1" Url="/">Home</BSNavItem>
+                        <BSNavItem Class="mx-1" OnClick="@(() => Navigate("/"))" PreventDefault>Home</BSNavItem>
                         <BSNavItem Class="mx-1" Url="/KerryShale">Kerry Shale</BSNavItem>
                         <BSNavItem Class="mx-1" Url="/Gallery">Gallery</BSNavItem>
                         <BSNavItem Class="mx-1" Url="/Quotes">Quotes</BSNavItem>
@@ -77,5 +78,12 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void Navigate(String dest)
+    {
+        NavigationManager.NavigateTo(
+            dest,
+            forceLoad: true);
     }
 }

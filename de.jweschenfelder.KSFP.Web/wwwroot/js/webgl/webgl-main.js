@@ -10,14 +10,14 @@ let mixer;
 
 const clock = new THREE.Clock();
 
+const canvas = document.getElementById('canvasId');
+
+const canvasWidth = canvas.offsetWidth;
+const canvasHeight = canvas.offsetHeight;
+
 init();
 
 function init() {
-
-	const canvas = document.getElementById('canvasId');
-
-	const canvasWidth = canvas.offsetWidth;
-	const canvasHeight = canvas.offsetHeight;
 
 	camera = new THREE.PerspectiveCamera(40, canvasWidth / canvasHeight, 1, 2000);
 	camera.position.set(100, 200, 300);
