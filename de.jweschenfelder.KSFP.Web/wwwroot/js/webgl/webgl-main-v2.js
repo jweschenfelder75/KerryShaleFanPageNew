@@ -72,7 +72,7 @@ function init() {
 
 function loadAsset() {
 
-	loader.load('./js/webgl/three/examples/models/fbx/KS2.fbx', function (group) {
+	loader.load('./js/webgl/three/examples/models/fbx/KS1.fbx', function (group) {
 
 		if (object) {
 
