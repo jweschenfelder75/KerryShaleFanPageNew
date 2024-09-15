@@ -8,6 +8,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\js\webgl\three\docs\**" />
+    <Compile Remove="wwwroot\js\webgl\three\examples\jsm\cameras\**" />
+    <Compile Remove="wwwroot\js\webgl\three\examples\jsm\libs\**" />
+    <Compile Remove="wwwroot\js\webgl\three\examples\jsm\lights\**" />
+    <Compile Remove="wwwroot\js\webgl\three\examples\jsm\lines\**" />
+    <Content Remove="wwwroot\js\webgl\three\docs\**" />
+    <Content Remove="wwwroot\js\webgl\three\examples\jsm\cameras\**" />
+    <Content Remove="wwwroot\js\webgl\three\examples\jsm\libs\**" />
+    <Content Remove="wwwroot\js\webgl\three\examples\jsm\lights\**" />
+    <Content Remove="wwwroot\js\webgl\three\examples\jsm\lines\**" />
+    <EmbeddedResource Remove="wwwroot\js\webgl\three\docs\**" />
+    <EmbeddedResource Remove="wwwroot\js\webgl\three\examples\jsm\cameras\**" />
+    <EmbeddedResource Remove="wwwroot\js\webgl\three\examples\jsm\libs\**" />
+    <EmbeddedResource Remove="wwwroot\js\webgl\three\examples\jsm\lights\**" />
+    <EmbeddedResource Remove="wwwroot\js\webgl\three\examples\jsm\lines\**" />
+    <None Remove="wwwroot\js\webgl\three\docs\**" />
+    <None Remove="wwwroot\js\webgl\three\examples\jsm\cameras\**" />
+    <None Remove="wwwroot\js\webgl\three\examples\jsm\libs\**" />
+    <None Remove="wwwroot\js\webgl\three\examples\jsm\lights\**" />
+    <None Remove="wwwroot\js\webgl\three\examples\jsm\lines\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Blazor.Bootstrap" Version="3.0.0" />
     <PackageReference Include="Blazor.Extensions.Canvas" Version="1.1.1" />
@@ -33,10 +56,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\de.jweschenfelder.KSFP.Shared\de.jweschenfelder.KSFP.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\js\webgl\three\docs\" />
   </ItemGroup>
 
 </Project>
