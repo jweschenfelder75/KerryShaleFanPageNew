@@ -21,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("newssettings.json", optional: true, reloadOnChange: true);
 builder.Configuration.AddJsonFile("gallerysettings.json", optional: true, reloadOnChange: true);
 
-// Add services to the container.
+// Add services to the container. 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
