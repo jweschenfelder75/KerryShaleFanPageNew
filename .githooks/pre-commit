@@ -9,4 +9,4 @@ commit=$(git log --pretty="author:%an committer:%cn timestamp:%ci" -n 1)
 commit_msg=$(echo "$commit" | head -1)
 
 # Write it
-echo "commit='$commit_hash $commit_msg'" > version.txt
+echo "prev_commit_id='$commit_hash commit='$commit_msg'" > version.txt
