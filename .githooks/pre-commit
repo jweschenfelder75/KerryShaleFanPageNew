@@ -8,4 +8,4 @@ commit_hash=$(git rev-parse --short=7 HEAD)
 commit_msg=$(git log -1 HEAD --format="author:%an committer:%cn timestamp:%ci")
 
 # Write it
-echo "prev_commit='$commit_hash $commit_msg'" > version.txt
+echo "prev_commit='hash:$commit_hash $commit_msg'" > version.txt
