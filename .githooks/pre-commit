@@ -5,7 +5,7 @@ set -e
 
 #=== 'prev-commit' solution by o_O Tync
 #commit_hash=$(git rev-parse --verify HEAD)
-commit=$(git log -1 --pretty="format%h format%an format%cn format%ci") # hashdate
+commit=$(git log -1 --pretty="%h %an %cn %ci")
 commit_msg=$(echo "$commit" | head -1)
 
 # Write it
