@@ -5,7 +5,7 @@ set -e
 
 #=== 'prev-commit' solution by o_O Tync
 #commit_hash=$(git rev-parse --verify HEAD)
-commit=$(git log -1 --pretty="%H%n%ci") # hash \n date
+commit=$(git log -1 --pretty="%h%n%ci") # hash \n date
 commit_hash=$(echo "$commit" | head -1)
 commit_date=$(echo "$commit" | head -2 | tail -1) # 2010-12-28 05:16:23 +0300
 
