@@ -4,8 +4,9 @@
 set -e
 
 #=== 'prev-commit' solution by o_O Tync
-commit=$(git log --pretty="id:%h author:%an committer:%cn timestamp:%ci")
+commit_hash=$(git rev-parse --short HEAD)
+commit=$(git log --pretty="author:%an committer:%cn timestamp:%ci")
 commit_msg=$(echo "$commit" | head -1)
 
 # Write it
-echo "prev_commit='$commit_msg'\n" > version.txt
+echo "prev_commit='$commit_hash $commit_msg'" > version.txt
