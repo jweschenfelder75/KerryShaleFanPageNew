@@ -8,7 +8,7 @@ set -e
 # Prepare replace title and commit title.
 commit_hash=$(git rev-parse --short=7 HEAD)
 commit_msg=$(git log -1 HEAD --format="author:%an committer:%cn timestamp:%ci")
-old_title="\$Id\$"
+old_title="$Id$"
 cleaned_old_title="${old_title// /\\ }"
 title="prev_commit='$Id: hash:$commit_hash $commit_msg' $"
 cleaned_title="${title// /\\ }"
