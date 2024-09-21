@@ -12,4 +12,4 @@ title="prev_commit='\$Id: hash:$commit_hash $commit_msg' \$"
 cleaned_title="${title// /\\ }"
 
 # Replace the placeholder $Id$ with the commit title (with escape characters inserted). 
-find . -type f \( -name '*.cs' -o  -name '*.java' -o -name '*.sql' -o -name '*.hsc' \) | xargs sed -i "s/(\$Id(.*?)\$)/$cleaned_title/1"
+find ../ -type f \( -name '*.cs' -o  -name '*.java' -o -name '*.sql' -o -name '*.hsc' \) | xargs sed -i "s/(\$Id(.*?)\$)/$cleaned_title/1"
