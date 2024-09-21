@@ -62,5 +62,5 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 
-*.cs	ident
-*.CS	ident
+#*.cs	ident
+#*.CS	ident
