@@ -5,11 +5,13 @@
 # Instructs a shell to exit if a command fails, i.e., if it outputs a non-zero exit status.
 set -e
 
-# Prepare commit title.
+# Prepare replace title and commit title.
 commit_hash=$(git rev-parse --short=7 HEAD)
 commit_msg=$(git log -1 HEAD --format="author:%an committer:%cn timestamp:%ci")
+old_title="\$Id\$"
+cleaned_old_title="${old_title// /\\ }"
 title="prev_commit='$Id: hash:$commit_hash $commit_msg' $"
 cleaned_title="${title// /\\ }"
 
 # Replace the placeholder $Id$ with the commit title (with escape characters inserted).
-find . -type f \( -name '*.cs' -o  -name '*.java' -o -name '*.sql' -o -name '*.hsc' \) | xargs sed -i "s/$Id$/$cleaned_title/g"
+find . -type f \( -name '*.cs' -o  -name '*.java' -o -name '*.sql' -o -name '*.hsc' \) | xargs sed -i "s/$cleaned_old_title/$cleaned_title/g"
