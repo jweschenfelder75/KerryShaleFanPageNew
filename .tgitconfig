@@ -1,0 +1,4 @@
+[hook "precommit"]
+	cmdline = D:\\KSFPNew\\.githooks\\pre-commit
+	wait = true
+	show = true

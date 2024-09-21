@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # git config --local core.hooksPath .githooks/
+# git config --global core.hooksPath '~/.githooks/'
 
 # Instructs a shell to exit if a command fails, i.e., if it outputs a non-zero exit status. 
 set -e
@@ -12,4 +13,4 @@ title="prev_commit='\$Id: hash:$commit_hash $commit_msg' \$"
 cleaned_title="${title// /\\ }"
 
 # Replace the placeholder $Id$ with the commit title (with escape characters inserted). 
-find ../ -type f \( -name '*.cs' -o  -name '*.java' -o -name '*.sql' -o -name '*.hsc' \) | xargs sed -i "s/(\$Id(.*?)\$)/$cleaned_title/1"
+find . -type f \( -name '*.cs' -o  -name '*.java' -o -name '*.sql' -o -name '*.hsc' \) | xargs sed -i "s/(\$Id(.*?)\$)/$cleaned_title/1"
