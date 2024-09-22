@@ -15,8 +15,6 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
-// $Id$ 
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("newssettings.json", optional: true, reloadOnChange: true);
 builder.Configuration.AddJsonFile("gallerysettings.json", optional: true, reloadOnChange: true);
