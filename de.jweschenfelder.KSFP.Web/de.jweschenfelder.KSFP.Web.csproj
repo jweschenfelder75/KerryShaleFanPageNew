@@ -39,12 +39,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Blazor.Bootstrap" Version="3.1.1" />
+    <PackageReference Include="Azure.Identity" Version="1.13.1" />
+    <PackageReference Include="Blazor.Bootstrap" Version="3.2.0" />
     <PackageReference Include="Blazor.Extensions.Canvas" Version="1.1.1" />
-    <PackageReference Include="BlazorCaptcha" Version="1.6.0" />
-    <PackageReference Include="BlazorStrap" Version="5.2.101" />
+    <PackageReference Include="BlazorCaptcha" Version="1.7.0" />
+    <PackageReference Include="BlazorStrap" Version="5.2.103.121624" />
     <PackageReference Include="BlazorStrap.Extensions.BSDataTable" Version="1.5.1" />
-    <PackageReference Include="BlazorStrap.V5" Version="5.2.101" />
+    <PackageReference Include="BlazorStrap.V5" Version="5.2.103" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
