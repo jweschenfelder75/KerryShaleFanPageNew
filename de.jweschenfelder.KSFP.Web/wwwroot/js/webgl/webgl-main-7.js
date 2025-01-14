@@ -19,15 +19,18 @@ init();
 
 function init() {
 
-	camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 2000);
-	camera.position.set(0, 125, 225);
+	camera = new THREE.PerspectiveCamera(50, canvasWidth / canvasHeight, 1, 2000);
+	camera.position.set(0, 200, 200);
 
 	scene = new THREE.Scene();
-	scene.background = new THREE.Color(0xa0a0a0);
-	scene.fog = new THREE.Fog(0xa0a0a0, 200, 1000);
+	scene.background = new THREE.Color(0xd6eaf8);
+	scene.fog = new THREE.Fog(0xd6eaf8, 200, 1000);
 
-	const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 2);
-	hemiLight.position.set(0, 200, 0);
+	const light = new THREE.AmbientLight(0x404040);
+	scene.add(light);
+
+	const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 4);
+	hemiLight.position.set(0, 100, 0);
 	scene.add(hemiLight);
 
 	const dirLight = new THREE.DirectionalLight(0xffffff, 2);
@@ -42,13 +45,13 @@ function init() {
 	// scene.add( new THREE.CameraHelper( dirLight.shadow.camera ) );
 
 	// ground
-	const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2000, 2000), new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false }));
+	const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2000, 2000), new THREE.MeshPhongMaterial({ color: 0x145a32, depthWrite: false }));
 	mesh.rotation.x = - Math.PI / 2;
 	mesh.receiveShadow = true;
 	scene.add(mesh);
 
 	const grid = new THREE.GridHelper(2000, 20, 0x000000, 0x000000);
-	grid.material.opacity = 0.2;
+	grid.material.opacity = 0.1;
 	grid.material.transparent = true;
 	scene.add(grid);
 
@@ -72,7 +75,7 @@ function init() {
 
 function loadAsset() {
 
-	loader.load('./js/webgl/three/examples/models/fbx/KS1_LOD0.fbx', function (group) {
+	loader.load('./js/webgl/three/examples/models/fbx/KS5.fbx', function (group) {
 
 		if (object) {
 
