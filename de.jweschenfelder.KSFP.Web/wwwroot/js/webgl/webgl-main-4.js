@@ -19,14 +19,14 @@ init();
 
 function init() {
 
-	camera = new THREE.PerspectiveCamera(35, canvasWidth / canvasHeight, 1, 2000);
-	camera.position.set(50, 125, 250);
+	camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 2000);
+	camera.position.set(0, 125, 225);
 
 	scene = new THREE.Scene();
 	scene.background = new THREE.Color(0xa0a0a0);
 	scene.fog = new THREE.Fog(0xa0a0a0, 200, 1000);
 
-	const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 4);
+	const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 2);
 	hemiLight.position.set(0, 200, 0);
 	scene.add(hemiLight);
 
