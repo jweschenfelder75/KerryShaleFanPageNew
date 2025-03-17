@@ -110,18 +110,25 @@ else
 
 app.UseHttpsRedirection();
 
-app.UseStaticFiles();
-
 var provider = new FileExtensionContentTypeProvider();
 // Add new mappings
+provider.Mappings[".js"] = "text/javascript";
 provider.Mappings[".fbx"] = "application/octet-stream";
 provider.Mappings[".myapp"] = "application/x-msdownload";
 
 app.UseStaticFiles(new StaticFileOptions
 {
-	FileProvider = new PhysicalFileProvider(
-		Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
-	ContentTypeProvider = provider
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
+    ContentTypeProvider = provider,
+    OnPrepareResponse = ctx =>
+    {
+        var path = ctx.File.PhysicalPath;
+        if (path != null && path.EndsWith(".js", StringComparison.OrdinalIgnoreCase))
+        {
+            ctx.Context.Response.ContentType = "text/javascript";
+        }
+    }
 });
 
 app.UseRouting();
